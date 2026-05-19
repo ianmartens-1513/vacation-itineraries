@@ -3,254 +3,483 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Martens Family Trips</title>
+  <title>Martens Family Travel</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@300;400;700&display=swap');
+
     :root {
-      --bg: #f4f1ec;
-      --surface: #ffffff;
-      --border: #e2ddd7;
-      --primary: #2d4a3e;
-      --accent: #b8722a;
-      --text: #1c1c1c;
-      --text-muted: #6b6560;
-      --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
-      --radius: 12px;
+      --paper: #f5efe0;
+      --paper-dark: #ede3cc;
+      --ink: #2c1f0e;
+      --ink-light: #5c4a30;
+      --ink-faded: #9a8060;
+      --red: #8b2020;
+      --navy: #1a2a4a;
+      --gold: #b8860b;
+      --gold-light: #d4a843;
+      --stamp-green: #2d5a2d;
+      --border: #c8b090;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Lato', Georgia, sans-serif;
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(180,140,80,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(139,32,32,0.05) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23f5efe0'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='rgba(150,110,60,0.15)'/%3E%3C/svg%3E");
+      color: var(--ink);
       min-height: 100vh;
     }
 
-    /* ─── HERO ─── */
-    .hero {
-      background: linear-gradient(150deg, #111e18 0%, #1a3329 30%, #2d4a3e 60%, #3d6a52 100%);
-      color: white;
-      padding: 64px 24px 52px;
+    /* ─── HEADER ─── */
+    header {
+      border-bottom: 3px double var(--border);
+      padding: 0 32px;
+      background: var(--paper);
+      position: relative;
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 0 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      position: relative;
-      overflow: hidden;
+      gap: 8px;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 120px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpolygon points='0,120 0,80 180,30 360,70 540,20 720,60 900,15 1080,55 1260,25 1440,50 1440,120' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") bottom/cover no-repeat;
+    .header-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 8px;
     }
-    .hero-eyebrow {
-      display: inline-block;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 100px;
-      padding: 5px 16px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
+    .header-rule-line {
+      flex: 1;
+      max-width: 120px;
+      height: 1px;
+      background: var(--border);
+    }
+    .header-rule-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .header-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin-bottom: 16px;
-      position: relative;
+      color: var(--ink-faded);
     }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      position: relative;
-      margin-bottom: 10px;
+    .header-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      line-height: 1;
     }
-    .hero p {
-      font-size: 1rem;
-      opacity: 0.6;
-      position: relative;
+    .header-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink-faded);
+      letter-spacing: 0.04em;
+    }
+    .compass {
+      font-size: 2rem;
+      opacity: 0.25;
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     /* ─── MAIN ─── */
     .main {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 48px 20px 80px;
+      padding: 48px 24px 80px;
     }
 
-    .section-eyebrow {
-      font-size: 0.68rem;
+    /* ─── SECTION HEADER ─── */
+    .section-head {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .section-label {
+      font-size: 0.62rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 4px;
+      color: var(--ink-faded);
+      margin-bottom: 6px;
     }
     .section-title {
-      font-size: 1.4rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 24px;
+      color: var(--ink);
     }
+    .section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .div-line { width: 60px; height: 1px; background: var(--border); }
+    .div-dot  { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; }
 
     /* ─── TRIP GRID ─── */
     .trip-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 28px;
     }
 
+    /* ─── POSTCARD CARD ─── */
     .trip-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.15s, box-shadow 0.15s;
       display: flex;
       flex-direction: column;
+      background: #fdf8ee;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      box-shadow:
+        2px 2px 0 var(--border),
+        4px 4px 0 rgba(0,0,0,0.06),
+        0 8px 32px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
     }
     .trip-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 12px 32px rgba(0,0,0,0.08);
+      transform: translateY(-4px) rotate(0.3deg);
+      box-shadow:
+        2px 2px 0 var(--border),
+        6px 10px 0 rgba(0,0,0,0.08),
+        0 16px 48px rgba(0,0,0,0.14);
+    }
+    .trip-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: repeating-linear-gradient(90deg, var(--red) 0, var(--red) 8px, transparent 8px, transparent 14px, var(--navy) 14px, var(--navy) 22px, transparent 22px, transparent 28px);
     }
 
-    .trip-banner {
-      height: 100px;
+    /* Banner */
+    .card-banner {
+      height: 110px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 3rem;
+      justify-content: space-between;
+      padding: 16px 20px 14px;
       position: relative;
     }
-    .trip-banner.montana {
-      background: linear-gradient(135deg, #1a3329, #2d4a3e, #3d6a52);
+    .card-banner-emoji {
+      font-size: 3.5rem;
+      line-height: 1;
+      filter: drop-shadow(1px 2px 4px rgba(0,0,0,0.2));
     }
-    .trip-banner.future {
-      background: linear-gradient(135deg, #2a2a3a, #3a3a5a);
+    .card-stamp {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 2px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.12);
+      text-align: center;
+      color: white;
+    }
+    .stamp-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .stamp-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
     }
 
-    .trip-body {
-      padding: 18px 20px 20px;
+    /* Card body */
+    .card-body {
+      padding: 16px 20px 20px;
+      border-top: 1px dashed var(--border);
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-    .trip-status {
-      font-size: 0.65rem;
+    .card-status {
+      font-size: 0.6rem;
       font-weight: 700;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-    }
-    .status-upcoming { color: #2d6a4f; }
-    .status-future   { color: #7a8fa0; }
-
-    .trip-name {
-      font-size: 1.1rem;
-      font-weight: 700;
       margin-bottom: 4px;
     }
-    .trip-dates {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+    .status-upcoming { color: var(--stamp-green); }
+    .status-planning { color: var(--ink-faded); }
+
+    .card-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 3px;
     }
-    .trip-stops {
+    .card-dates {
+      font-size: 0.75rem;
+      color: var(--ink-faded);
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+    .card-stops {
       font-size: 0.78rem;
-      color: var(--text-muted);
+      color: var(--ink-light);
       line-height: 1.5;
       flex: 1;
     }
-    .trip-cta {
-      display: inline-flex;
+    .card-footer {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 16px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent);
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--paper-dark);
+    }
+    .card-cta {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .card-postmark {
+      font-size: 0.6rem;
+      color: var(--ink-faded);
+      font-style: italic;
+      text-align: right;
     }
 
-    /* ─── ADD CARD ─── */
-    .trip-card-add {
-      background: none;
+    /* ─── COMING SOON CARD ─── */
+    .trip-card-tbd {
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 8px,
+        rgba(180,140,80,0.06) 8px,
+        rgba(180,140,80,0.06) 16px
+      );
       border: 2px dashed var(--border);
-      border-radius: var(--radius);
+      border-radius: 2px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 40px 20px;
-      color: var(--text-muted);
-      min-height: 220px;
-      gap: 8px;
+      min-height: 240px;
+      gap: 10px;
+      color: var(--ink-faded);
     }
-    .add-icon { font-size: 2rem; opacity: 0.4; }
-    .add-label { font-size: 0.85rem; font-weight: 500; opacity: 0.5; }
+    .tbd-icon  { font-size: 2rem; opacity: 0.35; }
+    .tbd-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      opacity: 0.45;
+    }
+
+    /* ─── ROUTE LINE ─── */
+    .route-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 40px 0 36px;
+      color: var(--ink-faded);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .route-dot {
+      width: 8px; height: 8px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .route-dash {
+      flex: 1;
+      max-width: 40px;
+      border-top: 1px dashed var(--border);
+      margin: 0 4px;
+    }
+    .route-plane { font-size: 0.9rem; margin: 0 4px; }
 
     /* ─── FOOTER ─── */
     footer {
       text-align: center;
-      padding: 32px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
+      border-top: 3px double var(--border);
+      padding: 24px;
+    }
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .footer-sub {
+      font-size: 0.7rem;
+      color: var(--ink-faded);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 580px) {
+      .compass { display: none; }
+      .trip-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <header class="hero">
-    <div class="hero-eyebrow">Martens Family</div>
-    <h1>Our Trips</h1>
-    <p>Past adventures &amp; future plans</p>
+  <!-- ══════════ HEADER ══════════ -->
+  <header>
+    <div class="header-inner">
+      <div class="header-rule">
+        <div class="header-rule-line"></div>
+        <div class="header-rule-diamond"></div>
+        <div class="header-rule-line"></div>
+      </div>
+      <div class="header-eyebrow">Martens Family &nbsp;·&nbsp; Private Collection</div>
+      <h1 class="header-title">Travel Itineraries</h1>
+      <p class="header-subtitle">Adventures near &amp; far, past &amp; planned</p>
+      <div class="header-rule" style="margin-top:8px; margin-bottom:0;">
+        <div class="header-rule-line"></div>
+        <div class="header-rule-diamond"></div>
+        <div class="header-rule-line"></div>
+      </div>
+    </div>
+    <div class="compass">🧭</div>
   </header>
 
+  <!-- ══════════ MAIN ══════════ -->
   <main class="main">
-    <div class="section-eyebrow">All itineraries</div>
-    <div class="section-title">Trip Collection</div>
+
+    <div class="section-head">
+      <div class="section-label">Destinations</div>
+      <div class="section-title">Our Trip Collection</div>
+      <div class="section-divider">
+        <div class="div-line"></div>
+        <div class="div-dot"></div>
+        <div class="div-line"></div>
+      </div>
+    </div>
 
     <div class="trip-grid">
 
       <!-- Montana 2026 -->
       <a class="trip-card" href="montana-2026.html" target="_blank">
-        <div class="trip-banner montana">🏔️</div>
-        <div class="trip-body">
-          <div class="trip-status status-upcoming">Upcoming</div>
-          <div class="trip-name">Montana 2026</div>
-          <div class="trip-dates">June 27 – July 5, 2026</div>
-          <div class="trip-stops">Jackson Hole · Grand Teton · Yellowstone · Missoula</div>
-          <div class="trip-cta">View itinerary →</div>
+        <div class="card-banner" style="background: linear-gradient(135deg, #1a3329, #2d4a3e, #4a7a5e);">
+          <div class="card-banner-emoji">🏔️</div>
+          <div class="card-stamp">
+            <div class="stamp-year">2026</div>
+            <div class="stamp-label">Montana</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-status status-upcoming">✦ Upcoming</div>
+          <div class="card-name">Montana &amp; Wyoming</div>
+          <div class="card-dates">June 27 – July 5, 2026</div>
+          <div class="card-stops">Jackson Hole · Grand Teton · Yellowstone · Missoula</div>
+          <div class="card-footer">
+            <div class="card-cta">Open Itinerary →</div>
+            <div class="card-postmark">9 days · 4 stops</div>
+          </div>
         </div>
       </a>
 
       <!-- Greece 2026 -->
       <a class="trip-card" href="greece-2026.html" target="_blank">
-        <div class="trip-banner" style="background: linear-gradient(135deg, #0d2a4a, #1a4a7a, #2a6aaa);">🏛️</div>
-        <div class="trip-body">
-          <div class="trip-status status-future">In Planning</div>
-          <div class="trip-name">Greece 2026</div>
-          <div class="trip-dates">2026 · Dates TBD</div>
-          <div class="trip-stops">Itinerary coming soon</div>
-          <div class="trip-cta">View details →</div>
+        <div class="card-banner" style="background: linear-gradient(135deg, #0d2a4a, #1a4a7a, #2a6aaa);">
+          <div class="card-banner-emoji">🏛️</div>
+          <div class="card-stamp">
+            <div class="stamp-year">2026</div>
+            <div class="stamp-label">Greece</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-status status-planning">◌ In Planning</div>
+          <div class="card-name">Greece</div>
+          <div class="card-dates">2026 · Dates TBD</div>
+          <div class="card-stops">Itinerary coming soon</div>
+          <div class="card-footer">
+            <div class="card-cta">View Details →</div>
+            <div class="card-postmark">TBD</div>
+          </div>
         </div>
       </a>
 
       <!-- London 2026 -->
       <a class="trip-card" href="london-2026.html" target="_blank">
-        <div class="trip-banner" style="background: linear-gradient(135deg, #0d0d1a, #1a1a3a, #2a2a5a);">🎡</div>
-        <div class="trip-body">
-          <div class="trip-status status-future">In Planning</div>
-          <div class="trip-name">London 2026</div>
-          <div class="trip-dates">2026 · Dates TBD</div>
-          <div class="trip-stops">Itinerary coming soon</div>
-          <div class="trip-cta">View details →</div>
+        <div class="card-banner" style="background: linear-gradient(135deg, #0d0d1a, #1a1a3a, #2a2a5a);">
+          <div class="card-banner-emoji">🎡</div>
+          <div class="card-stamp">
+            <div class="stamp-year">2026</div>
+            <div class="stamp-label">London</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-status status-planning">◌ In Planning</div>
+          <div class="card-name">London</div>
+          <div class="card-dates">2026 · Dates TBD</div>
+          <div class="card-stops">Itinerary coming soon</div>
+          <div class="card-footer">
+            <div class="card-cta">View Details →</div>
+            <div class="card-postmark">TBD</div>
+          </div>
         </div>
       </a>
 
+      <!-- Placeholder -->
+      <div class="trip-card-tbd">
+        <div class="tbd-icon">✈️</div>
+        <div class="tbd-label">Next adventure TBD</div>
+      </div>
+
     </div>
+
   </main>
 
-  <footer>Martens Family Trips &nbsp;·&nbsp; Private itinerary collection</footer>
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-mark">Martens Family Travels</div>
+      <div class="footer-sub">Private &nbsp;·&nbsp; Est. 2026</div>
+    </div>
+  </footer>
 
 </body>
 </html>
