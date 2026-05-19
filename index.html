@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montana 2026 — Martens Family</title>
+  <style>
+    :root {
+      --bg: #f4f1ec;
+      --surface: #ffffff;
+      --surface-alt: #f9f7f4;
+      --border: #e2ddd7;
+      --primary: #2d4a3e;
+      --primary-light: #3d6354;
+      --accent: #b8722a;
+      --accent-light: #f0e4d0;
+      --sky: #4a7fa5;
+      --sky-light: #daeaf5;
+      --text: #1c1c1c;
+      --text-muted: #6b6560;
+      --text-light: #9b9590;
+      --yellow: #d4a017;
+      --yellow-light: #fdf6e3;
+      --red: #8b3a3a;
+      --red-light: #fdf0f0;
+      --green: #2d6a4f;
+      --green-light: #e8f5ee;
+      --radius: 10px;
+      --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(150deg, #111e18 0%, #1a3329 30%, #2d4a3e 60%, #3d6a52 100%);
+      color: white;
+      padding: 64px 24px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 180px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 180'%3E%3Cpolygon points='0,180 0,120 120,60 240,100 380,30 520,90 640,20 760,80 900,10 1040,70 1160,30 1280,80 1440,40 1440,180' fill='rgba(255,255,255,0.04)'/%3E%3Cpolygon points='0,180 0,140 160,90 300,120 440,60 580,110 700,50 840,100 980,40 1100,90 1240,55 1380,95 1440,70 1440,180' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") bottom/cover no-repeat;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 100px;
+      padding: 5px 16px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      position: relative;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+    .hero h2 {
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
+      font-weight: 400;
+      opacity: 0.65;
+      position: relative;
+      margin-bottom: 32px;
+      letter-spacing: 0.02em;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .hero-stat-value {
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.68rem;
+      opacity: 0.55;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrap {
+      background: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .nav {
+      display: flex;
+      max-width: 960px;
+      margin: 0 auto;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.55);
+      padding: 15px 22px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .nav-btn:hover { color: rgba(255,255,255,0.85); }
+    .nav-btn.active {
+      color: #fff;
+      border-bottom-color: #c17f3a;
+    }
+
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+    }
+
+    /* ─── TABS ─── */
+    .tab { display: none; }
+    .tab.active { display: block; }
+
+    /* ─── SECTION LABELS ─── */
+    .section-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .section-gap { margin-top: 36px; }
+
+    /* ─── OVERVIEW STATS ─── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+    .stat-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--primary); line-height: 1.2; }
+    .stat-label { font-size: 0.77rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ─── PHASE CARDS ─── */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .phase-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+    }
+    .phase-card.sky   { border-left-color: var(--sky); }
+    .phase-card.amber { border-left-color: var(--accent); }
+    .phase-card.slate { border-left-color: #7a8fa0; }
+    .phase-num  { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
+    .phase-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 3px; }
+    .phase-dates { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; }
+    .phase-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ─── DAY CARDS ─── */
+    .day-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-alt);
+    }
+    .day-num {
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      gap: 2px;
+    }
+    .day-num span { font-size: 1.15rem; font-weight: 800; }
+    .day-title { flex: 1; min-width: 0; }
+    .day-name { font-size: 0.95rem; font-weight: 700; }
+    .day-location { font-size: 0.77rem; color: var(--text-muted); }
+    .phase-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-green  { background: var(--green-light);  color: var(--green); }
+    .badge-sky    { background: var(--sky-light);    color: var(--sky); }
+    .badge-amber  { background: var(--accent-light); color: var(--accent); }
+    .badge-yellow { background: var(--yellow-light); color: #7a5c0a; }
+    .badge-slate  { background: #eef0f2; color: #5a6a7a; }
+
+    .day-body { padding: 16px 18px; }
+
+    .event-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .event-item { display: flex; gap: 11px; align-items: flex-start; }
+    .event-icon {
+      width: 30px; height: 30px;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .bg-flight   { background: var(--sky-light); }
+    .bg-car      { background: var(--accent-light); }
+    .bg-hotel    { background: var(--green-light); }
+    .bg-activity { background: #f0edf8; }
+    .bg-drive    { background: #fff3e0; }
+    .bg-event    { background: #fce4ec; }
+    .bg-church   { background: #f5f0ff; }
+
+    .event-label  { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .event-detail { font-size: 0.78rem; color: var(--text-muted); margin-top: 1px; }
+    .event-confirm {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 0.7rem;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .event-warn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 5px;
+      font-size: 0.72rem;
+      color: var(--red);
+      font-weight: 500;
+    }
+    .ev-divider {
+      border: none;
+      border-top: 1px dashed var(--border);
+      margin: 4px 0;
+    }
+
+    /* ─── LODGING TAB ─── */
+    .lodge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .lodge-head {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+    }
+    .lodge-emoji { font-size: 2rem; flex-shrink: 0; }
+    .lodge-name  { font-size: 1rem; font-weight: 700; }
+    .lodge-sub   { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+    .lodge-body  { padding: 16px 20px; }
+    .lodge-grid  { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+    .meta-label  { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); margin-bottom: 3px; }
+    .meta-value  { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .meta-value.mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem; letter-spacing: 0.04em; }
+    .meta-value.warn { color: var(--red); }
+
+    /* ─── LOGISTICS TAB ─── */
+    .logistics-block { margin-bottom: 30px; }
+    .block-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+      padding-bottom: 4px;
+      margin-bottom: 14px;
+    }
+
+    .flight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 32px 1fr auto;
+      align-items: center;
+      gap: 10px;
+    }
+    .f-code  { font-size: 1.5rem; font-weight: 800; color: var(--primary); line-height: 1; }
+    .f-city  { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+    .f-time  { font-size: 0.85rem; font-weight: 600; margin-top: 4px; }
+    .f-arrow { text-align: center; font-size: 1rem; color: var(--text-light); }
+    .f-meta  { text-align: right; }
+    .f-airline { font-size: 0.72rem; font-weight: 700; color: var(--sky); text-transform: uppercase; letter-spacing: 0.06em; }
+    .f-cost    { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-top: 3px; }
+    .f-date    { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    .car-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .car-emoji  { font-size: 1.6rem; flex-shrink: 0; }
+    .car-info   { flex: 1; }
+    .car-name   { font-size: 0.92rem; font-weight: 700; }
+    .car-detail { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+    .car-cost   { font-size: 1.1rem; font-weight: 800; color: var(--primary); flex-shrink: 0; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 580px) {
+      .flight-card {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+      }
+      .f-arrow { display: none; }
+      .f-meta { text-align: left; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ HERO ══════════ -->
+  <header class="hero">
+    <div class="hero-eyebrow">Martens Family · Summer 2026</div>
+    <h1>Montana Trip 2026</h1>
+    <h2>Jackson Hole &nbsp;·&nbsp; Grand Teton &nbsp;·&nbsp; Yellowstone &nbsp;·&nbsp; Missoula</h2>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-value">9</div>
+        <div class="hero-stat-label">Days</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">3</div>
+        <div class="hero-stat-label">States</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">4</div>
+        <div class="hero-stat-label">Stops</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">Jun 27</div>
+        <div class="hero-stat-label">Departure</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">Jul 5</div>
+        <div class="hero-stat-label">Return</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav class="nav-wrap">
+    <div class="nav">
+      <button class="nav-btn active" onclick="showTab('overview', this)">Overview</button>
+      <button class="nav-btn" onclick="showTab('itinerary', this)">Day by Day</button>
+      <button class="nav-btn" onclick="showTab('lodging', this)">Lodging</button>
+      <button class="nav-btn" onclick="showTab('logistics', this)">Flights &amp; Cars</button>
+    </div>
+  </nav>
+
+  <!-- ══════════ CONTENT ══════════ -->
+  <main class="main">
+
+    <!-- ── OVERVIEW ── -->
+    <div class="tab active" id="tab-overview">
+
+      <div class="section-eyebrow">01 · Trip at a glance</div>
+      <div class="section-title">Quick Stats</div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-icon">🏔️</div>
+          <div class="stat-value">3 nights</div>
+          <div class="stat-label">Jackson Hole / Grand Teton</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🌋</div>
+          <div class="stat-value">3 nights</div>
+          <div class="stat-label">Yellowstone National Park</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💒</div>
+          <div class="stat-value">2 nights</div>
+          <div class="stat-label">Missoula — Wedding</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🚗</div>
+          <div class="stat-value">2 cars</div>
+          <div class="stat-label">Enterprise + Hertz · pickup JAC</div>
+        </div>
+      </div>
+
+      <div class="section-gap"></div>
+      <div class="section-eyebrow">02 · Trip phases</div>
+      <div class="section-title">How the Trip is Structured</div>
+      <div class="phase-grid">
+        <div class="phase-card">
+          <div class="phase-num">Phase 1 · Jun 27–29</div>
+          <div class="phase-name">Jackson Hole &amp; Grand Teton</div>
+          <div class="phase-dates">3 nights · Teton Mountain Lodge &amp; Spa</div>
+          <div class="phase-desc">Land in Jackson Hole, pick up both rental cars, tour the town, catch the Jackson Rodeo, and spend two full days exploring Grand Teton National Park.</div>
+        </div>
+        <div class="phase-card sky">
+          <div class="phase-num">Phase 2 · Jun 30–Jul 2</div>
+          <div class="phase-name">Yellowstone National Park</div>
+          <div class="phase-dates">3 nights · Canyon Lodge &amp; Cabins</div>
+          <div class="phase-desc">Drive 2 hrs 15 min north to Yellowstone. Three full days to explore geysers, hot springs, wildlife, and the Grand Canyon of the Yellowstone.</div>
+        </div>
+        <div class="phase-card amber">
+          <div class="phase-num">Phase 3 · Jul 3–4</div>
+          <div class="phase-name">Missoula — Rehearsal &amp; Wedding</div>
+          <div class="phase-dates">2 nights · Residence Inn Missoula Downtown</div>
+          <div class="phase-desc">Drive 4 hrs 20 min west to Missoula. Friday rehearsal, then the wedding on Independence Day, July 4th.</div>
+        </div>
+        <div class="phase-card slate">
+          <div class="phase-num">Phase 4 · Jul 5</div>
+          <div class="phase-name">Departure from Bozeman</div>
+          <div class="phase-dates">Drive 3 hrs · drop cars · fly home</div>
+          <div class="phase-desc">Morning drive to Bozeman, return both rental cars, and split: one group flies home to CLT, another heads to San Diego for the ADF Conference (Jul 5–10).</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── DAY BY DAY ── -->
+    <div class="tab" id="tab-itinerary">
+
+      <div class="section-eyebrow">03 · Day-by-day</div>
+      <div class="section-title">Full Itinerary</div>
+
+      <!-- June 27 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--primary)">Jun<span>27</span></div>
+          <div class="day-title">
+            <div class="day-name">Saturday — Arrival Day</div>
+            <div class="day-location">Jackson Hole, Wyoming</div>
+          </div>
+          <span class="phase-badge badge-green">Phase 1</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-flight">✈️</div>
+              <div>
+                <div class="event-label">Flight DCA → JAC &nbsp;·&nbsp; American Airlines</div>
+                <div class="event-detail">Departs 6:30 AM &nbsp;·&nbsp; Arrives 11:10 AM &nbsp;·&nbsp; $1,101 ($551/person)</div>
+              </div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-flight">✈️</div>
+              <div>
+                <div class="event-label">Flight CLT → JAC &nbsp;·&nbsp; American Airlines</div>
+                <div class="event-detail">Departs 8:55 AM &nbsp;·&nbsp; Arrives 11:10 AM &nbsp;·&nbsp; $662 ($331/person)</div>
+              </div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-car">🚗</div>
+              <div>
+                <div class="event-label">Pick up Rental Car — Enterprise</div>
+                <div class="event-detail">12:00 PM · $1,827 total</div>
+              </div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-car">🚗</div>
+              <div>
+                <div class="event-label">Pick up Rental Car — Hertz</div>
+                <div class="event-detail">12:00 PM · $1,650 total</div>
+              </div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-activity">🤠</div>
+              <div><div class="event-label">Tour Jackson &amp; Jackson Hole</div></div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-activity">🐎</div>
+              <div><div class="event-label">Jackson Rodeo</div></div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Teton Mountain Lodge &amp; Spa</div>
+                <div class="event-detail">$1,677 / night</div>
+                <div class="event-confirm">Confirm # 63792SF131396</div>
+                <div class="event-warn">⚠️ Cancel 14 days in advance</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- June 28 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--primary)">Jun<span>28</span></div>
+          <div class="day-title">
+            <div class="day-name">Sunday — Grand Teton</div>
+            <div class="day-location">Grand Teton National Park, Wyoming</div>
+          </div>
+          <span class="phase-badge badge-green">Phase 1</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-church">⛪</div>
+              <div><div class="event-label">Church</div></div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-activity">🏔️</div>
+              <div><div class="event-label">Tour Grand Teton National Park</div></div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Teton Mountain Lodge &amp; Spa</div>
+                <div class="event-detail">$1,677 / night</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- June 29 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--primary)">Jun<span>29</span></div>
+          <div class="day-title">
+            <div class="day-name">Monday — Grand Teton</div>
+            <div class="day-location">Grand Teton National Park, Wyoming</div>
+          </div>
+          <span class="phase-badge badge-green">Phase 1</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-activity">🏔️</div>
+              <div><div class="event-label">Tour Grand Teton National Park</div></div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Teton Mountain Lodge &amp; Spa</div>
+                <div class="event-detail">$1,677 / night</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- June 30 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--sky)">Jun<span>30</span></div>
+          <div class="day-title">
+            <div class="day-name">Tuesday — Drive to Yellowstone</div>
+            <div class="day-location">Yellowstone National Park, Wyoming</div>
+          </div>
+          <span class="phase-badge badge-sky">Phase 2</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-drive">🚙</div>
+              <div>
+                <div class="event-label">Drive to Yellowstone</div>
+                <div class="event-detail">~2 hrs 15 min from Grand Teton</div>
+              </div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-activity">🌋</div>
+              <div><div class="event-label">Tour Yellowstone National Park</div></div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Canyon Lodge &amp; Cabins</div>
+                <div class="event-detail">$434 / room / night</div>
+                <div class="event-confirm">Expedia # 72069478417535</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- July 1 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--sky)">Jul<span>1</span></div>
+          <div class="day-title">
+            <div class="day-name">Wednesday — Yellowstone</div>
+            <div class="day-location">Yellowstone National Park, Wyoming</div>
+          </div>
+          <span class="phase-badge badge-sky">Phase 2</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-activity">🌋</div>
+              <div><div class="event-label">Tour Yellowstone National Park</div></div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Canyon Lodge &amp; Cabins</div>
+                <div class="event-detail">$434 / room / night</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- July 2 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--sky)">Jul<span>2</span></div>
+          <div class="day-title">
+            <div class="day-name">Thursday — Yellowstone</div>
+            <div class="day-location">Yellowstone National Park, Wyoming</div>
+          </div>
+          <span class="phase-badge badge-sky">Phase 2</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-activity">🌋</div>
+              <div><div class="event-label">Tour Yellowstone National Park</div></div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Canyon Lodge &amp; Cabins</div>
+                <div class="event-detail">$585 / room / night</div>
+                <div class="event-confirm">Expedia # 72069628266728</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- July 3 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--accent)">Jul<span>3</span></div>
+          <div class="day-title">
+            <div class="day-name">Friday — Drive to Missoula</div>
+            <div class="day-location">Missoula, Montana</div>
+          </div>
+          <span class="phase-badge badge-amber">Phase 3</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-drive">🚙</div>
+              <div>
+                <div class="event-label">Drive to Missoula Area</div>
+                <div class="event-detail">~4 hrs 20 min from Yellowstone</div>
+              </div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-event">💍</div>
+              <div><div class="event-label">Wedding Rehearsal</div></div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Residence Inn Missoula Downtown</div>
+                <div class="event-detail">$712 ($356 / room)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- July 4 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:var(--accent)">Jul<span>4</span></div>
+          <div class="day-title">
+            <div class="day-name">Saturday — Wedding Day 🎉</div>
+            <div class="day-location">Missoula, Montana</div>
+          </div>
+          <span class="phase-badge badge-amber">Phase 3</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-event">💒</div>
+              <div>
+                <div class="event-label">The Wedding</div>
+                <div class="event-detail">Independence Day &amp; Wedding Day!</div>
+              </div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Residence Inn Missoula Downtown</div>
+                <div class="event-detail">$712 ($357 / room)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- July 5 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:#5a6a7a">Jul<span>5</span></div>
+          <div class="day-title">
+            <div class="day-name">Sunday — Departure from Bozeman</div>
+            <div class="day-location">Bozeman, Montana</div>
+          </div>
+          <span class="phase-badge badge-yellow">Phase 4</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-drive">🚙</div>
+              <div>
+                <div class="event-label">Drive to Bozeman</div>
+                <div class="event-detail">~3 hrs from Missoula</div>
+              </div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-car">🚗</div>
+              <div>
+                <div class="event-label">Drop off Rental Car — Enterprise</div>
+                <div class="event-detail">11:45 AM · Bozeman Airport</div>
+              </div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-car">🚗</div>
+              <div>
+                <div class="event-label">Drop off Rental Car — Hertz</div>
+                <div class="event-detail">11:46 AM · Bozeman Airport</div>
+              </div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-flight">✈️</div>
+              <div>
+                <div class="event-label">Flight BZN → CLT &nbsp;·&nbsp; American Airlines</div>
+                <div class="event-detail">Departs 12:25 PM &nbsp;·&nbsp; Arrives 6:25 PM &nbsp;·&nbsp; $882 ($441/person)</div>
+              </div>
+            </li>
+            <li class="event-item">
+              <div class="event-icon bg-flight">✈️</div>
+              <div>
+                <div class="event-label">Flight BZN → SAN &nbsp;·&nbsp; Alaska Airlines</div>
+                <div class="event-detail">Departs 1:50 PM &nbsp;·&nbsp; Arrives 3:34 PM &nbsp;·&nbsp; $660 ($330/person)</div>
+              </div>
+            </li>
+            <hr class="ev-divider">
+            <li class="event-item">
+              <div class="event-icon bg-hotel">🏨</div>
+              <div>
+                <div class="event-label">Marriott Marquis San Diego Marina</div>
+                <div class="event-detail">$462 / night &nbsp;·&nbsp; ADF Conference (Jul 5–10)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- July 10 -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num" style="background:#5a6a7a">Jul<span>10</span></div>
+          <div class="day-title">
+            <div class="day-name">Friday — Return from San Diego</div>
+            <div class="day-location">San Diego → Washington D.C.</div>
+          </div>
+          <span class="phase-badge badge-slate">San Diego</span>
+        </div>
+        <div class="day-body">
+          <ul class="event-list">
+            <li class="event-item">
+              <div class="event-icon bg-flight">✈️</div>
+              <div>
+                <div class="event-label">Flight SAN → IAD &nbsp;·&nbsp; American Airlines</div>
+                <div class="event-detail">Departs 9:40 AM &nbsp;·&nbsp; Arrives 5:54 PM &nbsp;·&nbsp; $1,356 ($678/person)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── LODGING ── -->
+    <div class="tab" id="tab-lodging">
+
+      <div class="section-eyebrow">04 · Where you're staying</div>
+      <div class="section-title">Accommodations</div>
+
+      <!-- Teton -->
+      <div class="lodge-card">
+        <div class="lodge-head">
+          <div class="lodge-emoji">🏔️</div>
+          <div>
+            <div class="lodge-name">Teton Mountain Lodge &amp; Spa</div>
+            <div class="lodge-sub">June 27–30 &nbsp;·&nbsp; 3 nights &nbsp;·&nbsp; Jackson Hole, WY</div>
+          </div>
+        </div>
+        <div class="lodge-body">
+          <div class="lodge-grid">
+            <div>
+              <div class="meta-label">Nightly Rate</div>
+              <div class="meta-value">$1,677</div>
+            </div>
+            <div>
+              <div class="meta-label">Total (3 nights)</div>
+              <div class="meta-value">$5,031</div>
+            </div>
+            <div>
+              <div class="meta-label">Confirmation</div>
+              <div class="meta-value mono">63792SF131396</div>
+            </div>
+            <div>
+              <div class="meta-label">Cancellation Policy</div>
+              <div class="meta-value warn">⚠️ 14 days in advance</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canyon Lodge -->
+      <div class="lodge-card">
+        <div class="lodge-head">
+          <div class="lodge-emoji">🌋</div>
+          <div>
+            <div class="lodge-name">Canyon Lodge &amp; Cabins</div>
+            <div class="lodge-sub">June 30 – July 3 &nbsp;·&nbsp; 3 nights &nbsp;·&nbsp; Yellowstone, WY</div>
+          </div>
+        </div>
+        <div class="lodge-body">
+          <div class="lodge-grid">
+            <div>
+              <div class="meta-label">Rate (Nights 1–2)</div>
+              <div class="meta-value">$434 / room</div>
+            </div>
+            <div>
+              <div class="meta-label">Rate (Night 3)</div>
+              <div class="meta-value">$585 / room</div>
+            </div>
+            <div>
+              <div class="meta-label">Confirmation #1</div>
+              <div class="meta-value mono">72069478417535</div>
+            </div>
+            <div>
+              <div class="meta-label">Confirmation #2</div>
+              <div class="meta-value mono">72069628266728</div>
+            </div>
+            <div>
+              <div class="meta-label">Booked via</div>
+              <div class="meta-value">Expedia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Residence Inn Missoula -->
+      <div class="lodge-card">
+        <div class="lodge-head">
+          <div class="lodge-emoji">💒</div>
+          <div>
+            <div class="lodge-name">Residence Inn Missoula Downtown</div>
+            <div class="lodge-sub">July 3–5 &nbsp;·&nbsp; 2 nights &nbsp;·&nbsp; Missoula, MT</div>
+          </div>
+        </div>
+        <div class="lodge-body">
+          <div class="lodge-grid">
+            <div>
+              <div class="meta-label">Night 1 (Jul 3)</div>
+              <div class="meta-value">$712 ($356 / room)</div>
+            </div>
+            <div>
+              <div class="meta-label">Night 2 (Jul 4)</div>
+              <div class="meta-value">$712 ($357 / room)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marriott San Diego -->
+      <div class="lodge-card">
+        <div class="lodge-head">
+          <div class="lodge-emoji">🌊</div>
+          <div>
+            <div class="lodge-name">Marriott Marquis San Diego Marina</div>
+            <div class="lodge-sub">July 5–10 &nbsp;·&nbsp; 5 nights &nbsp;·&nbsp; San Diego, CA</div>
+          </div>
+        </div>
+        <div class="lodge-body">
+          <div class="lodge-grid">
+            <div>
+              <div class="meta-label">Nightly Rate</div>
+              <div class="meta-value">$462</div>
+            </div>
+            <div>
+              <div class="meta-label">Total (5 nights)</div>
+              <div class="meta-value">$2,310</div>
+            </div>
+            <div>
+              <div class="meta-label">Purpose</div>
+              <div class="meta-value">ADF Conference</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── LOGISTICS ── -->
+    <div class="tab" id="tab-logistics">
+
+      <div class="section-eyebrow">05 · Getting there &amp; around</div>
+      <div class="section-title">Flights &amp; Vehicles</div>
+
+      <!-- Outbound -->
+      <div class="logistics-block">
+        <div class="block-title">Outbound Flights &nbsp;·&nbsp; Saturday, June 27</div>
+        <div class="flight-card">
+          <div>
+            <div class="f-code">DCA</div>
+            <div class="f-city">Washington, D.C.</div>
+            <div class="f-time">6:30 AM</div>
+          </div>
+          <div class="f-arrow">→</div>
+          <div>
+            <div class="f-code">JAC</div>
+            <div class="f-city">Jackson Hole</div>
+            <div class="f-time">11:10 AM</div>
+          </div>
+          <div class="f-meta">
+            <div class="f-airline">American Airlines</div>
+            <div class="f-cost">$1,101 &nbsp;·&nbsp; $551/person</div>
+            <div class="f-date">Sat, June 27</div>
+          </div>
+        </div>
+        <div class="flight-card">
+          <div>
+            <div class="f-code">CLT</div>
+            <div class="f-city">Charlotte, NC</div>
+            <div class="f-time">8:55 AM</div>
+          </div>
+          <div class="f-arrow">→</div>
+          <div>
+            <div class="f-code">JAC</div>
+            <div class="f-city">Jackson Hole</div>
+            <div class="f-time">11:10 AM</div>
+          </div>
+          <div class="f-meta">
+            <div class="f-airline">American Airlines</div>
+            <div class="f-cost">$662 &nbsp;·&nbsp; $331/person</div>
+            <div class="f-date">Sat, June 27</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Return -->
+      <div class="logistics-block">
+        <div class="block-title">Return Flights &nbsp;·&nbsp; Sunday, July 5</div>
+        <div class="flight-card">
+          <div>
+            <div class="f-code">BZN</div>
+            <div class="f-city">Bozeman, MT</div>
+            <div class="f-time">12:25 PM</div>
+          </div>
+          <div class="f-arrow">→</div>
+          <div>
+            <div class="f-code">CLT</div>
+            <div class="f-city">Charlotte, NC</div>
+            <div class="f-time">6:25 PM</div>
+          </div>
+          <div class="f-meta">
+            <div class="f-airline">American Airlines</div>
+            <div class="f-cost">$882 &nbsp;·&nbsp; $441/person</div>
+            <div class="f-date">Sun, July 5</div>
+          </div>
+        </div>
+        <div class="flight-card">
+          <div>
+            <div class="f-code">BZN</div>
+            <div class="f-city">Bozeman, MT</div>
+            <div class="f-time">1:50 PM</div>
+          </div>
+          <div class="f-arrow">→</div>
+          <div>
+            <div class="f-code">SAN</div>
+            <div class="f-city">San Diego, CA</div>
+            <div class="f-time">3:34 PM</div>
+          </div>
+          <div class="f-meta">
+            <div class="f-airline">Alaska Airlines</div>
+            <div class="f-cost">$660 &nbsp;·&nbsp; $330/person</div>
+            <div class="f-date">Sun, July 5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- San Diego return -->
+      <div class="logistics-block">
+        <div class="block-title">San Diego Return &nbsp;·&nbsp; Friday, July 10</div>
+        <div class="flight-card">
+          <div>
+            <div class="f-code">SAN</div>
+            <div class="f-city">San Diego, CA</div>
+            <div class="f-time">9:40 AM</div>
+          </div>
+          <div class="f-arrow">→</div>
+          <div>
+            <div class="f-code">IAD</div>
+            <div class="f-city">Washington, D.C.</div>
+            <div class="f-time">5:54 PM</div>
+          </div>
+          <div class="f-meta">
+            <div class="f-airline">American Airlines</div>
+            <div class="f-cost">$1,356 &nbsp;·&nbsp; $678/person</div>
+            <div class="f-date">Fri, July 10</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rental Cars -->
+      <div class="logistics-block">
+        <div class="block-title">Rental Cars</div>
+        <div class="car-card">
+          <div class="car-emoji">🚗</div>
+          <div class="car-info">
+            <div class="car-name">Car 1 — Enterprise</div>
+            <div class="car-detail">Pick up: Jackson Hole Airport &nbsp;·&nbsp; June 27 @ 12:00 PM</div>
+            <div class="car-detail">Drop off: Bozeman &nbsp;·&nbsp; July 5 @ 11:45 AM</div>
+          </div>
+          <div class="car-cost">$1,827</div>
+        </div>
+        <div class="car-card">
+          <div class="car-emoji">🚗</div>
+          <div class="car-info">
+            <div class="car-name">Car 2 — Hertz</div>
+            <div class="car-detail">Pick up: Jackson Hole Airport &nbsp;·&nbsp; June 27 @ 12:00 PM</div>
+            <div class="car-detail">Drop off: Bozeman &nbsp;·&nbsp; July 5 @ 11:46 AM</div>
+          </div>
+          <div class="car-cost">$1,650</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function showTab(name, btn) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
