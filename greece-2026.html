@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greece 2026 — Martens Family</title>
+  <style>
+    :root {
+      --primary: #1a4a7a;
+      --accent: #c0932a;
+      --bg: #f4f1ec;
+      --text: #1c1c1c;
+      --text-muted: #6b6560;
+      --border: #e2ddd7;
+      --surface: #ffffff;
+      --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .hero {
+      background: linear-gradient(150deg, #0d2a4a 0%, #1a4a7a 40%, #2a6aaa 80%, #3a7aba 100%);
+      color: white;
+      padding: 64px 24px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpolygon points='0,120 0,80 180,40 360,70 540,30 720,65 900,20 1080,55 1260,35 1440,55 1440,120' fill='rgba(255,255,255,0.05)'/%3E%3C/svg%3E") bottom/cover no-repeat;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 100px;
+      padding: 5px 16px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      position: relative;
+      margin-bottom: 10px;
+    }
+    .hero h2 {
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
+      font-weight: 400;
+      opacity: 0.65;
+      position: relative;
+    }
+    .main {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .coming-soon-icon { font-size: 4rem; margin-bottom: 20px; }
+    .coming-soon-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .coming-soon-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+    .back-link:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-eyebrow">Martens Family · 2026</div>
+    <h1>Greece 2026</h1>
+    <h2>Coming Soon</h2>
+  </header>
+
+  <main class="main">
+    <div class="coming-soon-icon">🏛️</div>
+    <div class="coming-soon-title">Itinerary in Planning</div>
+    <div class="coming-soon-text">Details for the Greece 2026 trip are still being worked out. Check back soon for the full itinerary.</div>
+    <a class="back-link" href="index.html">← Back to All Trips</a>
+  </main>
+
+</body>
+</html>
