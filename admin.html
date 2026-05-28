@@ -457,7 +457,7 @@ Rules:
 - Be friendly and conversational in "reply"`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://claude-proxy.iantmartens.workers.dev/', {
       method: 'POST',
       headers: {
         'x-api-key':         getClaudeKey(),
