@@ -563,7 +563,10 @@ RULES:
 - Never say you already did something — check the file above. If it's not there, add it now
 - Never tell the user to manually save — saving is automatic
 - Never include prices
-- Insert events under the correct DAY line in time order`;
+- Insert events under the correct DAY line in time order
+- To DELETE something: find the exact line(s) in the file and omit them entirely from newContent — do not leave a blank line or placeholder
+- To ADD something: insert the new line(s) in the right place
+- newContent must be the COMPLETE file — never truncate or summarize`;
 
   try {
     const res = await fetch('https://claude-proxy.iantmartens.workers.dev/', {
