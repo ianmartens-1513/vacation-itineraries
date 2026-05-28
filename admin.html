@@ -26,8 +26,15 @@
       flex-shrink: 0;
     }
     .header-title { font-size: 16px; font-weight: 600; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .trip-pill {
+      font-size: 12px; color: #3a8fbf;
+      background: #1a2535; border: 1px solid #3a8fbf;
+      border-radius: 12px; padding: 3px 10px;
+      display: none;
+    }
     .logout-btn {
-      font-size: 13px; color: #888;
+      font-size: 13px; color: #666;
       background: none; border: none; cursor: pointer; padding: 4px 8px;
     }
 
@@ -49,7 +56,7 @@
       font-size: 15px; margin-bottom: 16px; outline: none;
     }
     .field-input:focus { border-color: #3a8fbf; }
-    .field-hint { font-size: 12px; color: #666; margin-top: -10px; margin-bottom: 16px; }
+    .field-hint { font-size: 12px; color: #555; margin-top: -10px; margin-bottom: 16px; }
     .btn-primary {
       width: 100%; background: #3a8fbf; color: white; border: none;
       border-radius: 10px; padding: 14px; font-size: 16px;
@@ -83,21 +90,14 @@
       background: #1a2a1a; border: 1px solid #2a4a2a;
       align-self: center; text-align: center; font-size: 13px;
       color: #6ab86a; border-radius: 10px; max-width: 90%;
+      padding: 8px 14px;
     }
     .msg-error {
       background: #2a1a1a; border: 1px solid #5a2a2a;
       align-self: center; text-align: center; font-size: 13px;
       color: #e05555; border-radius: 10px; max-width: 90%;
+      padding: 8px 14px;
     }
-
-    .preview-card {
-      background: #1a2535; border: 1px solid #2a4a6a;
-      border-radius: 12px; padding: 12px 14px; margin-top: 6px;
-      font-size: 14px; line-height: 2;
-    }
-    .preview-row { display: flex; gap: 10px; }
-    .preview-label { color: #7a9ab8; min-width: 80px; }
-    .preview-val { color: #e8e8e8; }
 
     /* ── Quick replies ── */
     .quick-replies {
@@ -111,16 +111,16 @@
     }
     .qr-btn:active { background: #2a4a6a; }
 
-    /* ── Text input ── */
+    /* ── Input ── */
     .input-area {
-      padding: 6px 12px 16px; display: flex;
+      padding: 8px 12px 16px; display: flex;
       gap: 8px; align-items: flex-end; flex-shrink: 0;
     }
     .chat-input {
       flex: 1; background: #1a1a1a; border: 1px solid #333;
       border-radius: 20px; padding: 10px 16px; color: #e8e8e8;
       font-size: 15px; outline: none; resize: none;
-      max-height: 100px; line-height: 1.4; font-family: inherit;
+      max-height: 120px; line-height: 1.4; font-family: inherit;
     }
     .chat-input:focus { border-color: #3a8fbf; }
     .send-btn {
@@ -128,18 +128,10 @@
       width: 40px; height: 40px; display: flex; align-items: center;
       justify-content: center; cursor: pointer; flex-shrink: 0;
     }
+    .send-btn:disabled { background: #2a2a2a; cursor: default; }
     .send-btn svg { width: 18px; height: 18px; fill: white; }
 
-    .restart-area {
-      padding: 0 16px 6px; display: flex;
-      justify-content: center; flex-shrink: 0;
-    }
-    .restart-btn {
-      background: none; border: 1px solid #2a2a2a; color: #666;
-      border-radius: 20px; padding: 5px 14px; font-size: 12px; cursor: pointer;
-    }
-
-    /* ── Typing indicator ── */
+    /* ── Typing ── */
     .typing { display: flex; gap: 5px; align-items: center; padding: 2px 0; }
     .typing span {
       width: 7px; height: 7px; background: #555; border-radius: 50%;
@@ -157,7 +149,10 @@
 
 <div class="header">
   <span class="header-title">✈️ Trip Editor</span>
-  <button class="logout-btn" onclick="doLogout()">Log out</button>
+  <div class="header-right">
+    <span class="trip-pill" id="trip-pill"></span>
+    <button class="logout-btn" onclick="doLogout()">Log out</button>
+  </div>
 </div>
 
 <!-- LOGIN -->
@@ -171,7 +166,10 @@
 
     <label class="field-label">GitHub Token</label>
     <input class="field-input" type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
-    <div class="field-hint">Your personal access token — stored on this device only</div>
+
+    <label class="field-label">Anthropic API Key</label>
+    <input class="field-input" type="password" id="claude-input" placeholder="sk-ant-xxxxxxxxxxxx" autocomplete="off">
+    <div class="field-hint">All credentials stored on this device only — never sent to anyone but GitHub &amp; Anthropic</div>
 
     <button class="btn-primary" onclick="doLogin()">Sign In</button>
     <div class="login-error" id="login-error"></div>
@@ -182,12 +180,9 @@
 <div id="chat-screen">
   <div class="messages" id="messages"></div>
   <div class="quick-replies" id="quick-replies"></div>
-  <div class="restart-area" id="restart-area" style="display:none">
-    <button class="restart-btn" onclick="restart()">↩ Start over</button>
-  </div>
-  <div class="input-area" id="input-area" style="display:none">
+  <div class="input-area">
     <textarea class="chat-input" id="chat-input" placeholder="Type here..." rows="1"></textarea>
-    <button class="send-btn" onclick="sendText()">
+    <button class="send-btn" id="send-btn" onclick="sendText()">
       <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
   </div>
@@ -195,79 +190,58 @@
 
 <script>
 const REPO = 'ianmartens-1513/vacation-itineraries';
-const API  = 'https://api.github.com';
-const PW   = 'Martens2026';
+const GH_API = 'https://api.github.com';
+const PW = 'Martens2026';
 
 const TRIPS = {
   'Montana 2026': 'data/montana-2026.txt',
   'Greece 2026':  'data/greece-2026.txt'
 };
 
-const EVENT_TYPES = [
-  { label: 'Flight ✈️',    value: 'flight' },
-  { label: 'Hotel 🏨',     value: 'hotel' },
-  { label: 'Dinner 🍽️',   value: 'dinner' },
-  { label: 'Activity 🎯',  value: 'activity' },
-  { label: 'Drive 🚙',     value: 'drive' },
-  { label: 'Tour 🏛️',     value: 'tour' },
-  { label: 'Beach 🏖️',    value: 'beach' },
-  { label: 'Drinks 🥂',   value: 'drinks' },
-  { label: 'Coffee ☕',    value: 'coffee' },
-  { label: 'Car 🚗',       value: 'car' },
-  { label: 'Taxi 🚐',      value: 'taxi' },
-  { label: 'Wedding 💒',   value: 'wedding' },
-  { label: 'Other 📌',     value: 'event' }
-];
-
-// ── State ──────────────────────────────────────────────
-let s = {};
-
-function resetState() {
-  s = {
-    step: 'SELECT_TRIP',
-    trip: null, tripFile: null,
-    tripContent: null, tripSha: null,
-    days: [],
-    day: null, dayLineIndex: null,
-    type: null, typeLabel: null,
-    label: null, time: null,
-    details: null, confirm: null,
-    removeLineIndex: null
-  };
-}
-
-// ── Auth ───────────────────────────────────────────────
-function getToken() { return localStorage.getItem('gh_token') || ''; }
+// ── Credentials ────────────────────────────────────────
+function getGHToken()     { return localStorage.getItem('gh_token') || ''; }
+function getClaudeKey()   { return localStorage.getItem('claude_key') || ''; }
 
 function doLogin() {
-  const pw    = document.getElementById('pw-input').value.trim();
-  const token = document.getElementById('token-input').value.trim();
-  const err   = document.getElementById('login-error');
-  if (pw !== PW)  { err.textContent = 'Incorrect password.'; return; }
-  if (!token)     { err.textContent = 'Please enter your GitHub token.'; return; }
-  localStorage.setItem('gh_auth',  'true');
-  localStorage.setItem('gh_token', token);
+  const pw     = document.getElementById('pw-input').value.trim();
+  const ghTok  = document.getElementById('token-input').value.trim();
+  const claude = document.getElementById('claude-input').value.trim();
+  const err    = document.getElementById('login-error');
+
+  if (pw !== PW)    { err.textContent = 'Incorrect password.'; return; }
+  if (!ghTok)       { err.textContent = 'Please enter your GitHub token.'; return; }
+  if (!claude)      { err.textContent = 'Please enter your Anthropic API key.'; return; }
+
+  localStorage.setItem('gh_auth',    'true');
+  localStorage.setItem('gh_token',   ghTok);
+  localStorage.setItem('claude_key', claude);
   showChat();
 }
 
 function doLogout() {
-  localStorage.removeItem('gh_auth');
-  localStorage.removeItem('gh_token');
+  ['gh_auth','gh_token','claude_key'].forEach(k => localStorage.removeItem(k));
   document.getElementById('chat-screen').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('pw-input').value    = '';
-  document.getElementById('token-input').value = '';
+  ['pw-input','token-input','claude-input'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('login-error').textContent = '';
+  document.getElementById('trip-pill').style.display = 'none';
 }
 
+// ── State ──────────────────────────────────────────────
+let currentTrip    = null;
+let currentFile    = null;
+let currentContent = null;
+let currentSha     = null;
+let isThinking     = false;
+
+// ── Chat init ──────────────────────────────────────────
 function showChat() {
   document.getElementById('login-screen').style.display = 'none';
   const cs = document.getElementById('chat-screen');
   cs.style.display = 'flex';
   cs.style.flexDirection = 'column';
-  resetState();
   clearMessages();
-  botSay("Hey! Which trip do you want to update?");
+  botSay("Hey! Which trip do you want to edit?");
   showQuickReplies(Object.keys(TRIPS).map(t => ({ label: t, value: t })));
 }
 
@@ -282,14 +256,14 @@ function scrollBottom() {
 }
 
 function botSay(html, delay) {
-  if (delay === undefined) delay = 320;
-  return new Promise(resolve => {
+  if (delay === undefined) delay = 280;
+  return new Promise(function(resolve) {
     const typing = document.createElement('div');
     typing.className = 'msg msg-bot';
     typing.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
     document.getElementById('messages').appendChild(typing);
     scrollBottom();
-    setTimeout(() => {
+    setTimeout(function() {
       typing.innerHTML = html;
       scrollBottom();
       resolve();
@@ -315,395 +289,267 @@ function systemMsg(text, isError) {
 
 function showQuickReplies(options) {
   const qr = document.getElementById('quick-replies');
-  const ia = document.getElementById('input-area');
-  const ra = document.getElementById('restart-area');
   qr.innerHTML = '';
-  ia.style.display = 'none';
-  ra.style.display = s.step !== 'SELECT_TRIP' ? 'flex' : 'none';
   options.forEach(function(opt) {
     const btn = document.createElement('button');
     btn.className = 'qr-btn';
     btn.textContent = opt.label;
-    btn.onclick = function() { handleQuickReply(opt.value, opt.label); };
+    btn.onclick = function() {
+      clearQuickReplies();
+      userSay(opt.label);
+      handleUserInput(opt.value);
+    };
     qr.appendChild(btn);
   });
 }
 
-function showTextInput(placeholder) {
+function clearQuickReplies() {
   document.getElementById('quick-replies').innerHTML = '';
-  document.getElementById('input-area').style.display = 'flex';
-  document.getElementById('restart-area').style.display = 'flex';
+}
+
+function setInputEnabled(enabled) {
   const inp = document.getElementById('chat-input');
-  inp.placeholder = placeholder || 'Type here...';
-  inp.value = '';
-  inp.style.height = '';
-  setTimeout(function() { inp.focus(); }, 100);
+  const btn = document.getElementById('send-btn');
+  inp.disabled = !enabled;
+  btn.disabled = !enabled;
+  isThinking = !enabled;
 }
 
-function showTextInputWithSkip(placeholder) {
-  showTextInput(placeholder);
-  const btn = document.createElement('button');
-  btn.className = 'qr-btn';
-  btn.textContent = 'Skip';
-  btn.onclick = function() { handleQuickReply('__skip__', 'Skip'); };
-  document.getElementById('quick-replies').appendChild(btn);
-}
-
-function hideInputs() {
-  document.getElementById('quick-replies').innerHTML = '';
-  document.getElementById('input-area').style.display = 'none';
-  document.getElementById('restart-area').style.display = 'none';
-}
-
-// ── Input handling ─────────────────────────────────────
+// ── Send text ──────────────────────────────────────────
 function sendText() {
+  if (isThinking) return;
   const inp = document.getElementById('chat-input');
   const val = inp.value.trim();
   if (!val) return;
   inp.value = '';
   inp.style.height = '';
+  clearQuickReplies();
   userSay(val);
-  hideInputs();
-  processInput(val, val);
+  handleUserInput(val);
 }
 
-function handleQuickReply(value, label) {
-  userSay(value === '__skip__' ? 'Skip' : label);
-  hideInputs();
-  processInput(value, label);
-}
-
-const SKIP_WORDS = ['skip','nope','nop','no','none','n/a','na','nothing','pass','-','–'];
-function isSkip(val) {
-  return val === '__skip__' || SKIP_WORDS.indexOf(val.toLowerCase().trim()) !== -1;
-}
-
-function restart() {
-  resetState();
-  clearMessages();
-  botSay("Sure! Which trip do you want to update?");
-  showQuickReplies(Object.keys(TRIPS).map(function(t) { return { label: t, value: t }; }));
-}
-
-// ── State machine ──────────────────────────────────────
-async function processInput(value, label) {
-  switch (s.step) {
-
-    case 'SELECT_TRIP': {
-      s.trip     = value;
-      s.tripFile = TRIPS[value];
-      await botSay('Loading trip…', 200);
+// ── Trip selection (before AI takes over) ─────────────
+async function handleUserInput(input) {
+  if (!currentTrip) {
+    if (TRIPS[input]) {
+      currentTrip = input;
+      currentFile = TRIPS[input];
+      document.getElementById('trip-pill').textContent = input;
+      document.getElementById('trip-pill').style.display = 'inline-block';
+      setInputEnabled(false);
+      await botSay('Loading ' + input + '…', 180);
       const ok = await loadTrip();
-      if (!ok) return;
-      s.step = 'SELECT_ACTION';
-      await botSay('Got it! What do you want to do?');
-      showQuickReplies([
-        { label: 'Add an event',    value: 'add' },
-        { label: 'Remove an event', value: 'remove' }
-      ]);
-      break;
+      if (!ok) { setInputEnabled(true); return; }
+      setInputEnabled(true);
+      await botSay('Got it! Tell me what you\'d like to change — add events, remove things, update details, whatever you need.');
+    } else {
+      await botSay('Which trip — Montana 2026 or Greece 2026?');
+      showQuickReplies(Object.keys(TRIPS).map(function(t) { return { label: t, value: t }; }));
     }
-
-    case 'SELECT_ACTION': {
-      if (value === 'add') {
-        s.step = 'SELECT_DAY';
-        await botSay('Which day do you want to add it to?');
-        showQuickReplies(s.days.map(function(d) { return { label: d.short, value: String(d.lineIndex) }; }));
-      } else {
-        s.step = 'SELECT_DAY_REMOVE';
-        await botSay('Which day has the event you want to remove?');
-        showQuickReplies(s.days.map(function(d) { return { label: d.short, value: String(d.lineIndex) }; }));
-      }
-      break;
-    }
-
-    case 'SELECT_DAY': {
-      const li = parseInt(value);
-      s.day = s.days.find(function(d) { return d.lineIndex === li; });
-      s.dayLineIndex = li;
-      s.step = 'SELECT_TYPE';
-      await botSay('Adding to <strong>' + s.day.short + '</strong>. What type of event is it?');
-      showQuickReplies(EVENT_TYPES.map(function(t) { return { label: t.label, value: t.value }; }));
-      break;
-    }
-
-    case 'SELECT_TYPE': {
-      s.type      = value;
-      s.typeLabel = label;
-      s.step = 'GET_LABEL';
-      await botSay("What's the name or title of the event?");
-      showTextInput('e.g. Dinner at Taverna Klimataria');
-      break;
-    }
-
-    case 'GET_LABEL': {
-      s.label = value;
-      s.step  = 'GET_TIME';
-      await botSay('What time does it start? (or tap Skip)');
-      showTextInputWithSkip('e.g. 7:30 PM');
-      break;
-    }
-
-    case 'GET_TIME': {
-      s.time = isSkip(value) ? null : value;
-      s.step = 'GET_DETAILS';
-      await botSay('Any extra details? (or tap Skip)');
-      showTextInputWithSkip('e.g. Meet at lobby, reservation under Martens');
-      break;
-    }
-
-    case 'GET_DETAILS': {
-      s.details = isSkip(value) ? null : value;
-      s.step    = 'GET_CONFIRM';
-      await botSay('Any confirmation number? (or tap Skip)');
-      showTextInputWithSkip('e.g. ABC123');
-      break;
-    }
-
-    case 'GET_CONFIRM': {
-      s.confirm = isSkip(value) ? null : value;
-      s.step    = 'PREVIEW';
-      await showPreview();
-      break;
-    }
-
-    case 'PREVIEW': {
-      if (value === 'yes') {
-        await saveEvent();
-      } else {
-        restart();
-      }
-      break;
-    }
-
-    case 'SELECT_DAY_REMOVE': {
-      const li2     = parseInt(value);
-      s.day          = s.days.find(function(d) { return d.lineIndex === li2; });
-      s.dayLineIndex = li2;
-      const events   = getEventsForDay(li2);
-      if (events.length === 0) {
-        await botSay("That day doesn't have any events to remove. Try a different day.");
-        showQuickReplies(s.days.map(function(d) { return { label: d.short, value: String(d.lineIndex) }; }));
-      } else {
-        s.step = 'SELECT_EVENT_REMOVE';
-        await botSay('Which event on <strong>' + s.day.short + '</strong> do you want to remove?');
-        showQuickReplies(events.map(function(e) { return { label: e.label, value: String(e.lineIndex) }; }));
-      }
-      break;
-    }
-
-    case 'SELECT_EVENT_REMOVE': {
-      s.removeLineIndex = parseInt(value);
-      const ev = getEventsForDay(s.dayLineIndex).find(function(e) { return e.lineIndex === s.removeLineIndex; });
-      s.step = 'CONFIRM_REMOVE';
-      await botSay('Remove "<strong>' + (ev ? ev.label : 'this event') + '</strong>"? This can\'t be undone.');
-      showQuickReplies([
-        { label: '🗑️ Yes, remove it', value: 'yes' },
-        { label: 'Cancel', value: 'cancel' }
-      ]);
-      break;
-    }
-
-    case 'CONFIRM_REMOVE': {
-      if (value === 'yes') {
-        await removeEvent();
-      } else {
-        restart();
-      }
-      break;
-    }
+    return;
   }
+
+  // Hand off to Claude
+  await askClaude(input);
 }
 
-// ── Trip loading ───────────────────────────────────────
+// ── Load trip from GitHub ──────────────────────────────
 async function loadTrip() {
   try {
     const res = await fetch(
-      API + '/repos/' + REPO + '/contents/' + s.tripFile,
-      { headers: { Authorization: 'token ' + getToken(), Accept: 'application/vnd.github.v3+json' } }
+      GH_API + '/repos/' + REPO + '/contents/' + currentFile,
+      { headers: { Authorization: 'token ' + getGHToken(), Accept: 'application/vnd.github.v3+json' } }
     );
     if (!res.ok) {
-      const err = await res.json();
-      systemMsg('Load failed: ' + err.message, true);
+      const e = await res.json();
+      systemMsg('Load failed: ' + e.message, true);
       return false;
     }
     const data    = await res.json();
-    s.tripSha     = data.sha;
-    s.tripContent = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
-    parseDays();
+    currentSha     = data.sha;
+    currentContent = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
     return true;
-  } catch (e) {
+  } catch(e) {
     systemMsg('Network error: ' + e.message, true);
     return false;
   }
 }
 
-function parseDays() {
-  const lines = s.tripContent.split('\n');
-  s.days = [];
-  lines.forEach(function(line, i) {
-    if (!line.startsWith('DAY:')) return;
-    const parts = line.slice(4).split('|').map(function(p) { return p.trim(); });
-    const date  = parts[0] || '';
-    const name  = (parts[1] || '').replace(/^[A-Za-z]+ — /, '');
-    s.days.push({ lineIndex: i, short: date + ' — ' + name, date: date, name: name });
-  });
-}
-
-function getEventsForDay(dayLineIndex) {
-  const lines  = s.tripContent.split('\n');
-  const events = [];
-  let inDay    = false;
-  for (let i = 0; i < lines.length; i++) {
-    if (i === dayLineIndex) { inDay = true; continue; }
-    if (!inDay) continue;
-    const line = lines[i].trim();
-    if (!line) continue;
-    if (/^(DAY|PHASE|TITLE|SUBTITLE|STAT):/.test(line)) break;
-    if (line === '---') continue;
-    const ci = line.indexOf(':');
-    if (ci > 0) {
-      const after = line.slice(ci + 1).trim();
-      const pi    = after.indexOf('|');
-      const lbl   = pi > 0 ? after.slice(0, pi).trim() : after;
-      events.push({ lineIndex: i, label: lbl || line });
-    }
-  }
-  return events;
-}
-
-// ── Preview ────────────────────────────────────────────
-async function showPreview() {
-  const iconObj = EVENT_TYPES.find(function(t) { return t.value === s.type; });
-  const icon    = iconObj ? iconObj.label : s.type;
-  let html = 'Here\'s what I\'ll add:<div class="preview-card">';
-  html += '<div class="preview-row"><span class="preview-label">Type</span><span class="preview-val">' + icon + '</span></div>';
-  html += '<div class="preview-row"><span class="preview-label">Name</span><span class="preview-val">' + s.label + '</span></div>';
-  html += '<div class="preview-row"><span class="preview-label">Day</span><span class="preview-val">' + s.day.short + '</span></div>';
-  if (s.time)    html += '<div class="preview-row"><span class="preview-label">Time</span><span class="preview-val">' + s.time + '</span></div>';
-  if (s.details) html += '<div class="preview-row"><span class="preview-label">Details</span><span class="preview-val">' + s.details + '</span></div>';
-  if (s.confirm) html += '<div class="preview-row"><span class="preview-label">Confirm #</span><span class="preview-val">' + s.confirm + '</span></div>';
-  html += '</div>';
-  await botSay(html);
-  showQuickReplies([
-    { label: '✅ Add it',     value: 'yes' },
-    { label: '↩ Start over', value: 'no' }
-  ]);
-}
-
-// ── Build event line ───────────────────────────────────
-function buildEventLine() {
-  let detail = '';
-  if (s.time)    detail += s.time;
-  if (s.details) detail += (detail ? ' · ' : '') + s.details;
-  const parts = [s.label];
-  if (detail)    parts.push(detail);
-  if (s.confirm) parts.push('confirm: ' + s.confirm);
-  return s.type + ': ' + parts.join(' | ');
-}
-
-// ── Save (add) ─────────────────────────────────────────
-async function saveEvent() {
-  hideInputs();
-  await botSay('Saving…', 200);
-
-  const newLine = buildEventLine();
-  const lines   = s.tripContent.split('\n');
-
-  let insertAt = s.dayLineIndex + 1;
-  for (let i = s.dayLineIndex + 1; i < lines.length; i++) {
-    const l = lines[i].trim();
-    if (/^(DAY|PHASE|TITLE|SUBTITLE|STAT):/.test(l)) break;
-    if (l && l !== '---') insertAt = i + 1;
-  }
-
-  lines.splice(insertAt, 0, newLine);
-  const newContent = lines.join('\n');
-  const ok = await pushFile(newContent);
-  if (ok) {
-    systemMsg('✅ Saved! Site will update in about 30 seconds.');
-    s.tripContent = newContent;
-    parseDays();
-    s.step = 'SELECT_ACTION';
-    await botSay('Done! Want to do anything else?');
-    showQuickReplies([
-      { label: 'Add another event', value: 'add' },
-      { label: 'Remove an event',   value: 'remove' }
-    ]);
-  }
-}
-
-// ── Remove ─────────────────────────────────────────────
-async function removeEvent() {
-  hideInputs();
-  await botSay('Removing…', 200);
-
-  const lines      = s.tripContent.split('\n');
-  lines.splice(s.removeLineIndex, 1);
-  const newContent = lines.join('\n');
-  const ok         = await pushFile(newContent);
-  if (ok) {
-    systemMsg('✅ Removed! Site will update in about 30 seconds.');
-    s.tripContent = newContent;
-    parseDays();
-    s.step = 'SELECT_ACTION';
-    await botSay('Done! Anything else?');
-    showQuickReplies([
-      { label: 'Add an event',    value: 'add' },
-      { label: 'Remove an event', value: 'remove' }
-    ]);
-  }
-}
-
-// ── GitHub push ────────────────────────────────────────
-async function pushFile(content) {
+// ── Push updated file to GitHub ────────────────────────
+async function pushFile(newContent, message) {
   try {
-    const encoded = btoa(unescape(encodeURIComponent(content)));
+    const encoded = btoa(unescape(encodeURIComponent(newContent)));
     const res = await fetch(
-      API + '/repos/' + REPO + '/contents/' + s.tripFile,
+      GH_API + '/repos/' + REPO + '/contents/' + currentFile,
       {
         method: 'PUT',
         headers: {
-          Authorization:  'token ' + getToken(),
+          Authorization:  'token ' + getGHToken(),
           Accept:         'application/vnd.github.v3+json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          message: 'Update ' + s.trip + ' via Trip Editor',
+          message: message || ('Update ' + currentTrip + ' via Trip Editor'),
           content: encoded,
-          sha:     s.tripSha
+          sha:     currentSha
         })
       }
     );
     if (!res.ok) {
-      const err = await res.json();
-      systemMsg('Save failed: ' + err.message, true);
+      const e = await res.json();
+      systemMsg('Save failed: ' + e.message, true);
       return false;
     }
     const data = await res.json();
-    s.tripSha  = data.content.sha;
+    currentSha = data.content.sha;
     return true;
-  } catch (e) {
+  } catch(e) {
     systemMsg('Network error: ' + e.message, true);
     return false;
   }
 }
 
+// ── Ask Claude ─────────────────────────────────────────
+async function askClaude(userMessage) {
+  setInputEnabled(false);
+
+  // Typing indicator
+  const typingEl = document.createElement('div');
+  typingEl.className = 'msg msg-bot';
+  typingEl.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  document.getElementById('messages').appendChild(typingEl);
+  scrollBottom();
+
+  const systemPrompt = `You are a helpful travel itinerary assistant for the Martens family. You help edit trip itinerary files.
+
+The current trip is "${currentTrip}". Here is the current itinerary file content:
+
+\`\`\`
+${currentContent}
+\`\`\`
+
+The file uses a simple line-based format:
+- TITLE: / SUBTITLE: — trip header
+- STAT: value | label — quick stat shown at the top
+- PHASE: num | dates | name | nights | color | description — trip phase
+- DAY: month day | weekday — name | location | color | badge — day header
+- event lines: type: label | time · details | confirm: XYZ
+
+Event types: flight, hotel, taxi, car, drive, activity, tour, dinner, drinks, coffee, beach, wedding, church, event
+
+Colors: primary, blue, gold, slate, purple, amber
+
+When the user asks to make a change, respond with a JSON object in this exact format:
+{
+  "action": "update" | "none",
+  "reply": "friendly confirmation message to show the user",
+  "newContent": "the complete updated file content as a string (only when action is update)"
+}
+
+Rules:
+- Always return valid JSON, nothing else
+- When adding events, insert them in the right place under the correct DAY line
+- When removing events, delete just that line
+- Keep all existing content intact unless explicitly asked to change it
+- For "newContent", include the ENTIRE file with the change applied
+- If you're unsure what the user wants, set action to "none" and ask a clarifying question in "reply"
+- Never include prices
+- Be friendly and conversational in "reply"`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key':         getClaudeKey(),
+        'anthropic-version': '2023-06-01',
+        'content-type':      'application/json',
+        'anthropic-dangerous-direct-browser-calls': 'true'
+      },
+      body: JSON.stringify({
+        model:      'claude-haiku-4-5-20251001',
+        max_tokens: 4096,
+        system:     systemPrompt,
+        messages:   [{ role: 'user', content: userMessage }]
+      })
+    });
+
+    if (!res.ok) {
+      const e = await res.json();
+      typingEl.remove();
+      systemMsg('Claude error: ' + (e.error && e.error.message ? e.error.message : res.status), true);
+      setInputEnabled(true);
+      return;
+    }
+
+    const data       = await res.json();
+    const rawText    = data.content[0].text.trim();
+
+    // Parse JSON response
+    let parsed;
+    try {
+      // Strip markdown code fences if present
+      const jsonStr = rawText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim();
+      parsed = JSON.parse(jsonStr);
+    } catch(e) {
+      typingEl.innerHTML = rawText;
+      setInputEnabled(true);
+      return;
+    }
+
+    // Show Claude's reply
+    typingEl.innerHTML = parsed.reply || 'Done!';
+    scrollBottom();
+
+    // If there's an update, push it
+    if (parsed.action === 'update' && parsed.newContent) {
+      const ok = await pushFile(parsed.newContent);
+      if (ok) {
+        currentContent = parsed.newContent;
+        systemMsg('✅ Saved! Site updates in ~30 seconds.');
+      }
+    }
+
+  } catch(e) {
+    typingEl.remove();
+    systemMsg('Network error: ' + e.message, true);
+  }
+
+  setInputEnabled(true);
+}
+
+// ── Switch trip ────────────────────────────────────────
+async function switchTrip() {
+  currentTrip    = null;
+  currentFile    = null;
+  currentContent = null;
+  currentSha     = null;
+  document.getElementById('trip-pill').style.display = 'none';
+  clearMessages();
+  clearQuickReplies();
+  await botSay('Which trip do you want to edit?');
+  showQuickReplies(Object.keys(TRIPS).map(function(t) { return { label: t, value: t }; }));
+}
+
 // ── Init ───────────────────────────────────────────────
 window.addEventListener('load', function() {
-  if (localStorage.getItem('gh_auth') === 'true' && getToken()) showChat();
+  if (localStorage.getItem('gh_auth') === 'true' && getGHToken() && getClaudeKey()) {
+    showChat();
+  }
 
   document.getElementById('pw-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') document.getElementById('token-input').focus();
   });
   document.getElementById('token-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('claude-input').focus();
+  });
+  document.getElementById('claude-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') doLogin();
   });
 
   const inp = document.getElementById('chat-input');
   inp.addEventListener('input', function() {
     inp.style.height = '';
-    inp.style.height = Math.min(inp.scrollHeight, 100) + 'px';
+    inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
   });
   inp.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendText(); }
