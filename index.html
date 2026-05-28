@@ -357,6 +357,25 @@
       letter-spacing: 0.08em;
     }
 
+    /* ─── ADMIN LINK ─── */
+    .admin-link {
+      position: absolute;
+      top: 14px; right: 16px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faded);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      border-radius: 2px;
+      background: var(--paper);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .admin-link:hover { opacity: 1; }
+
     @media (max-width: 580px) {
       .compass { display: none; }
       .trip-grid { grid-template-columns: 1fr; }
@@ -383,6 +402,7 @@
       </div>
     </div>
     <div class="compass">🧭</div>
+    <a class="admin-link" href="admin.html" target="_blank">✏️ Edit Trips</a>
   </header>
 
   <!-- ══════════ MAIN ══════════ -->
@@ -431,13 +451,13 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="card-status status-planning">◌ In Planning</div>
+          <div id="greece-status" class="card-status status-planning">◌ In Planning</div>
           <div class="card-name">Greece</div>
-          <div class="card-dates">2026 · Dates TBD</div>
-          <div class="card-stops">Itinerary coming soon</div>
+          <div id="greece-dates" class="card-dates">2026 · Dates TBD</div>
+          <div id="greece-stops" class="card-stops">Itinerary coming soon</div>
           <div class="card-footer">
             <div class="card-cta">View Details →</div>
-            <div class="card-postmark">TBD</div>
+            <div id="greece-postmark" class="card-postmark">TBD</div>
           </div>
         </div>
       </a>
@@ -452,13 +472,13 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="card-status status-planning">◌ In Planning</div>
+          <div id="london-status" class="card-status status-planning">◌ In Planning</div>
           <div class="card-name">London</div>
-          <div class="card-dates">2026 · Dates TBD</div>
-          <div class="card-stops">Itinerary coming soon</div>
+          <div id="london-dates" class="card-dates">2026 · Dates TBD</div>
+          <div id="london-stops" class="card-stops">Itinerary coming soon</div>
           <div class="card-footer">
             <div class="card-cta">View Details →</div>
-            <div class="card-postmark">TBD</div>
+            <div id="london-postmark" class="card-postmark">TBD</div>
           </div>
         </div>
       </a>
@@ -481,5 +501,67 @@
     </div>
   </footer>
 
+<script>
+  const CARDS = [
+    {
+      file: 'data/greece-2026.txt',
+      statusEl:   'greece-status',
+      datesEl:    'greece-dates',
+      stopsEl:    'greece-stops',
+      postmarkEl: 'greece-postmark'
+    },
+    {
+      file: 'data/montana-2026.txt',
+      statusEl:   null,
+      datesEl:    null,
+      stopsEl:    null,
+      postmarkEl: null
+    }
+  ];
+
+  async function loadCard(card) {
+    if (!card.statusEl) return;
+    try {
+      const res  = await fetch(card.file + '?t=' + Date.now());
+      if (!res.ok) return;
+      const text = await res.text();
+      const lines = text.split('\n');
+
+      let subtitle = '';
+      const days   = [];
+
+      lines.forEach(function(line) {
+        line = line.trim();
+        if (line.startsWith('SUBTITLE:')) subtitle = line.slice(9).trim();
+        if (line.startsWith('DAY:')) {
+          const date = line.slice(4).split('|')[0].trim();
+          if (date) days.push(date);
+        }
+      });
+
+      const hasDays = days.length > 0;
+      const statusEl   = document.getElementById(card.statusEl);
+      const datesEl    = document.getElementById(card.datesEl);
+      const stopsEl    = document.getElementById(card.stopsEl);
+      const postmarkEl = document.getElementById(card.postmarkEl);
+
+      if (statusEl) {
+        statusEl.className = hasDays ? 'card-status status-upcoming' : 'card-status status-planning';
+        statusEl.textContent = hasDays ? '✦ Upcoming' : '◌ In Planning';
+      }
+      if (datesEl && hasDays) {
+        datesEl.textContent = days[0] + ' – ' + days[days.length - 1] + ', 2026';
+      }
+      if (stopsEl && subtitle) {
+        stopsEl.textContent = subtitle;
+      }
+      if (postmarkEl && hasDays) {
+        postmarkEl.textContent = days.length + ' days · ' + subtitle.split('·').length + ' stops';
+      }
+    } catch(e) {}
+  }
+
+  CARDS.forEach(loadCard);
+</script>
 </body>
 </html>
