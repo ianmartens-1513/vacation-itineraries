@@ -417,7 +417,7 @@ async function loadTrip() {
 }
 
 // ── Push updated file to GitHub ────────────────────────
-async function pushFile(newContent, message) {
+async function pushFile(newContent, message, retrying) {
   try {
     const encoded = btoa(unescape(encodeURIComponent(newContent)));
     const res = await fetch(
@@ -438,7 +438,13 @@ async function pushFile(newContent, message) {
     );
     if (!res.ok) {
       const e = await res.json();
-      systemMsg('Save failed: ' + e.message, true);
+      // 409 = stale SHA — reload and retry once
+      if (res.status === 409 && !retrying) {
+        systemMsg('Refreshing file version…');
+        const reloaded = await loadTrip();
+        if (reloaded) return pushFile(newContent, message, true);
+      }
+      systemMsg('Save failed (HTTP ' + res.status + '): ' + (e.message || 'unknown error') + (res.status === 401 ? ' — try logging out and back in' : res.status === 404 ? ' — check your GitHub token has repo write access' : ''), true);
       return false;
     }
     const data = await res.json();
