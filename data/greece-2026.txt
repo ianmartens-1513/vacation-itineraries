@@ -21,8 +21,6 @@ hotel: Attalos Hotel Athens | 3 rooms · Bed & Breakfast · Check-in 2:00 PM | c
 DAY: Jul 22 | Wednesday — Athens | Athens, Greece | primary | Phase 1
 activity: Explore Athens | Acropolis, Plaka, Monastiraki & more
 ---
-dinner: Dinner — The French Bakery | 6:00 PM
----
 hotel: Attalos Hotel Athens | Bed & Breakfast · Check-out 11:00 AM next day
 
 DAY: Jul 23 | Thursday — Drive North | Athens → Kilkis, Northern Greece | gold | Phase 2
