@@ -903,7 +903,7 @@
     // ── FETCH & INIT ─────────────────────────────────────
     async function init() {
       try {
-        const resp = await fetch('data/montana-2026.txt?t=' + Date.now());
+        const resp = await fetch('https://raw.githubusercontent.com/ianmartens-1513/vacation-itineraries/main/data/montana-2026.txt?t=' + Date.now());
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const text = await resp.text();
         const data = parseTripData(text);
