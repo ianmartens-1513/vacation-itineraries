@@ -522,42 +522,42 @@ async function askClaude(userMessage, file) {
   document.getElementById('messages').appendChild(typingEl);
   scrollBottom();
 
-  const systemPrompt = `You are a helpful travel itinerary assistant for the Martens family. You help edit trip itinerary files.
+  const systemPrompt = `You are a travel itinerary editor for the Martens family. You make direct changes to their live trip website.
 
-The current trip is "${currentTrip}". Here is the current itinerary file content:
+THE ONLY SOURCE OF TRUTH IS THE FILE CONTENT BELOW. Ignore anything in conversation history about what was "already added" — if it is not in the file below, it does not exist yet and must be added now.
 
+Current trip: ${currentTrip}
+
+CURRENT FILE (this is exactly what is saved right now):
 \`\`\`
 ${currentContent}
 \`\`\`
 
-The file uses a simple line-based format:
+File format:
 - TITLE: / SUBTITLE: — trip header
-- STAT: value | label — quick stat shown at the top
-- PHASE: num | dates | name | nights | color | description — trip phase
-- DAY: month day | weekday — name | location | color | badge — day header
+- STAT: value | label — quick stat
+- PHASE: num | dates | name | nights | color | description
+- DAY: month day | weekday — name | location | color | badge
 - event lines: type: label | time · details | confirm: XYZ
 
 Event types: flight, hotel, taxi, car, drive, activity, tour, dinner, drinks, coffee, beach, wedding, church, event
-
 Colors: primary, blue, gold, slate, purple, amber
 
-When the user asks to make a change, respond with a JSON object in this exact format:
+Respond ONLY with a JSON object:
 {
-  "action": "update" | "none",
-  "reply": "friendly confirmation message to show the user",
-  "newContent": "the complete updated file content as a string (only when action is update)"
+  "action": "update",
+  "reply": "one sentence confirmation of what you did",
+  "newContent": "THE COMPLETE FILE with change applied — every single line, nothing omitted"
 }
 
-Rules:
-- Always return valid JSON, nothing else
-- When adding events, insert them in the right place under the correct DAY line
-- When removing events, delete just that line
-- Keep all existing content intact unless explicitly asked to change it
-- For "newContent", include the ENTIRE file with the change applied
-- If you're unsure what the user wants, set action to "none" and ask a clarifying question in "reply"
+RULES:
+- JSON only — no text outside the JSON object
+- ALWAYS use "action": "update" when the user wants a change — the system pushes it to GitHub automatically
+- Only use "action": "none" (and omit newContent) if you genuinely need to ask a clarifying question
+- Never say you already did something — check the file above. If it's not there, add it now
+- Never tell the user to manually save — saving is automatic
 - Never include prices
-- Be friendly and conversational in "reply"
-- CRITICAL: Always use "action": "update" when making a change. Never tell the user to manually save anything — the system saves automatically. Never say you "provided" content or that they need to copy anything.`;
+- Insert events under the correct DAY line in time order`;
 
   try {
     const res = await fetch('https://claude-proxy.iantmartens.workers.dev/', {
@@ -621,11 +621,14 @@ Rules:
 
     // If there's an update, push it
     if (parsed.action === 'update' && parsed.newContent) {
+      systemMsg('Saving to GitHub…');
       const ok = await pushFile(parsed.newContent);
       if (ok) {
         currentContent = parsed.newContent;
         systemMsg('✅ Saved! Site updates in ~30 seconds.');
       }
+    } else if (parsed.action !== 'none') {
+      systemMsg('⚠️ No change was saved — Claude did not return updated content.', true);
     }
 
   } catch(e) {
