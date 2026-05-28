@@ -556,7 +556,8 @@ Rules:
 - For "newContent", include the ENTIRE file with the change applied
 - If you're unsure what the user wants, set action to "none" and ask a clarifying question in "reply"
 - Never include prices
-- Be friendly and conversational in "reply"`;
+- Be friendly and conversational in "reply"
+- CRITICAL: Always use "action": "update" when making a change. Never tell the user to manually save anything — the system saves automatically. Never say you "provided" content or that they need to copy anything.`;
 
   try {
     const res = await fetch('https://claude-proxy.iantmartens.workers.dev/', {
