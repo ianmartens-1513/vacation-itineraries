@@ -13,6 +13,7 @@ PHASE: Phase 3 | Jul 3–4 | Missoula — Rehearsal & Wedding | 2 nights · Resi
 PHASE: Phase 4 | Jul 5 | Departure from Bozeman | Drive 3 hrs · drop cars · fly home | slate | Morning drive to Bozeman, return both rental cars, and split — one group flies to CLT, another to San Diego for the ADF Conference.
 
 DAY: Jun 27 | Saturday — Arrival Day | Jackson Hole, Wyoming | primary | Phase 1
+event: Home Departure | 6:30 am · Need to find a friend to help us get to baggage check-in
 flight: Flight DCA → JAC · American Airlines | Departs 6:30 AM · Arrives 11:10 AM
 flight: Flight CLT → JAC · American Airlines | Departs 8:55 AM · Arrives 11:10 AM
 ---
@@ -23,7 +24,6 @@ activity: Tour Jackson & Jackson Hole
 activity: Jackson Rodeo
 ---
 hotel: Teton Mountain Lodge & Spa | $1,677 / night | confirm: 63792SF131396 | warn: Cancel 14 days in advance
-event: Home Departure | 6:30 am · Need to find a friend to help us get to baggage check-in
 
 DAY: Jun 28 | Sunday — Grand Teton | Grand Teton National Park, Wyoming | primary | Phase 1
 church: Church
