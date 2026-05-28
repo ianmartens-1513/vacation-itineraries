@@ -33,7 +33,6 @@ hotel: Teton Mountain Lodge & Spa | $1,677 / night
 
 DAY: Jun 29 | Monday — Grand Teton | Grand Teton National Park, Wyoming | primary | Phase 1
 activity: Tour Grand Teton National Park
-flight: Test Flight | 2:00 PM
 ---
 hotel: Teton Mountain Lodge & Spa | $1,677 / night
 
