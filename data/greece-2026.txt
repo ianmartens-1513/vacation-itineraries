@@ -30,6 +30,8 @@ car: Pick up Rental Van — Athens International Airport | 10:00 AM · Mercedes-
 ---
 drive: Drive North to Kilkis Area | Athens → Northern Greece
 event: Welcome Night & Traditional Celebration | Pre-wedding welcome gathering for all guests
+---
+dinner: Dinner | TBD
 
 DAY: Jul 24 | Friday — Beach Day | Halkidiki, Greece | gold | Phase 2
 beach: Beach Day — Halkidiki | Group beach day at one of Greece's most beautiful coastlines
