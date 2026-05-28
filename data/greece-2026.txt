@@ -34,6 +34,8 @@ event: Welcome Night & Traditional Celebration | Pre-wedding welcome gathering f
 DAY: Jul 24 | Friday — Beach Day | Halkidiki, Greece | gold | Phase 2
 beach: Beach Day — Halkidiki | Group beach day at one of Greece's most beautiful coastlines
 event: Evening Club Night
+---
+dinner: Dinner | TBD
 
 DAY: Jul 25 | Saturday — Thessaloniki | Thessaloniki, Greece | gold | Phase 2
 tour: Thessaloniki City Tour | Explore Greece's second city — Byzantine walls, White Tower, Aristotelous Square
