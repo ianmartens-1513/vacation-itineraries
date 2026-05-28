@@ -340,6 +340,7 @@ async function handleUserInput(input) {
       await botSay('Loading ' + input + '…', 180);
       const ok = await loadTrip();
       if (!ok) { setInputEnabled(true); return; }
+      resetConversation();
       setInputEnabled(true);
       await botSay('Got it! Tell me what you\'d like to change — add events, remove things, update details, whatever you need.');
     } else {
@@ -409,6 +410,13 @@ async function pushFile(newContent, message) {
   }
 }
 
+// ── Conversation history ───────────────────────────────
+let conversationHistory = [];
+
+function resetConversation() {
+  conversationHistory = [];
+}
+
 // ── Ask Claude ─────────────────────────────────────────
 async function askClaude(userMessage) {
   setInputEnabled(false);
@@ -468,7 +476,7 @@ Rules:
         model:      'claude-haiku-4-5-20251001',
         max_tokens: 4096,
         system:     systemPrompt,
-        messages:   [{ role: 'user', content: userMessage }]
+        messages:   conversationHistory.concat([{ role: 'user', content: userMessage }])
       })
     });
 
@@ -480,20 +488,25 @@ Rules:
       return;
     }
 
-    const data       = await res.json();
-    const rawText    = data.content[0].text.trim();
+    const data    = await res.json();
+    const rawText = data.content[0].text.trim();
 
     // Parse JSON response
     let parsed;
     try {
-      // Strip markdown code fences if present
       const jsonStr = rawText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim();
       parsed = JSON.parse(jsonStr);
     } catch(e) {
       typingEl.innerHTML = rawText;
+      conversationHistory.push({ role: 'user',      content: userMessage });
+      conversationHistory.push({ role: 'assistant', content: rawText });
       setInputEnabled(true);
       return;
     }
+
+    // Store exchange in history (use reply text so future context stays concise)
+    conversationHistory.push({ role: 'user',      content: userMessage });
+    conversationHistory.push({ role: 'assistant', content: rawText });
 
     // Show Claude's reply
     typingEl.innerHTML = parsed.reply || 'Done!';
