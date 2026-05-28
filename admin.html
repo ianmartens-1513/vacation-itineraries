@@ -373,6 +373,11 @@ function handleQuickReply(value, label) {
   processInput(value, label);
 }
 
+const SKIP_WORDS = ['skip','nope','nop','no','none','n/a','na','nothing','pass','-','–'];
+function isSkip(val) {
+  return val === '__skip__' || SKIP_WORDS.indexOf(val.toLowerCase().trim()) !== -1;
+}
+
 function restart() {
   resetState();
   clearMessages();
@@ -440,7 +445,7 @@ async function processInput(value, label) {
     }
 
     case 'GET_TIME': {
-      s.time = value === '__skip__' ? null : value;
+      s.time = isSkip(value) ? null : value;
       s.step = 'GET_DETAILS';
       await botSay('Any extra details? (or tap Skip)');
       showTextInputWithSkip('e.g. Meet at lobby, reservation under Martens');
@@ -448,7 +453,7 @@ async function processInput(value, label) {
     }
 
     case 'GET_DETAILS': {
-      s.details = value === '__skip__' ? null : value;
+      s.details = isSkip(value) ? null : value;
       s.step    = 'GET_CONFIRM';
       await botSay('Any confirmation number? (or tap Skip)');
       showTextInputWithSkip('e.g. ABC123');
@@ -456,7 +461,7 @@ async function processInput(value, label) {
     }
 
     case 'GET_CONFIRM': {
-      s.confirm = value === '__skip__' ? null : value;
+      s.confirm = isSkip(value) ? null : value;
       s.step    = 'PREVIEW';
       await showPreview();
       break;
