@@ -131,6 +131,37 @@
     .send-btn:disabled { background: #2a2a2a; cursor: default; }
     .send-btn svg { width: 18px; height: 18px; fill: white; }
 
+    /* ── Attach ── */
+    .attach-btn {
+      background: none; border: none; color: #666; cursor: pointer;
+      font-size: 20px; padding: 0 4px; flex-shrink: 0;
+      line-height: 40px; height: 40px; display: flex; align-items: center;
+    }
+    .attach-btn:hover { color: #3a8fbf; }
+
+    .file-preview {
+      padding: 6px 14px 0; display: flex; flex-wrap: wrap;
+      gap: 8px; flex-shrink: 0;
+    }
+    .file-preview-item {
+      display: flex; align-items: center; gap: 6px;
+      background: #1a2535; border: 1px solid #3a8fbf;
+      border-radius: 10px; padding: 5px 10px; font-size: 13px;
+      color: #3a8fbf; max-width: 240px;
+    }
+    .file-preview-thumb {
+      width: 32px; height: 32px; object-fit: cover;
+      border-radius: 4px; flex-shrink: 0;
+    }
+    .file-preview-name {
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
+    }
+    .file-remove-btn {
+      background: none; border: none; color: #888; cursor: pointer;
+      font-size: 16px; padding: 0; line-height: 1; flex-shrink: 0;
+    }
+    .file-remove-btn:hover { color: #e05555; }
+
     /* ── Typing ── */
     .typing { display: flex; gap: 5px; align-items: center; padding: 2px 0; }
     .typing span {
@@ -180,8 +211,11 @@
 <div id="chat-screen">
   <div class="messages" id="messages"></div>
   <div class="quick-replies" id="quick-replies"></div>
+  <div class="file-preview" id="file-preview"></div>
   <div class="input-area">
-    <textarea class="chat-input" id="chat-input" placeholder="Type here..." rows="1"></textarea>
+    <input type="file" id="file-input" accept="image/*,.pdf" style="display:none" onchange="handleFileSelect(this)">
+    <button class="attach-btn" onclick="document.getElementById('file-input').click()" title="Attach image or PDF">📎</button>
+    <textarea class="chat-input" id="chat-input" placeholder="Type here, or attach a file..." rows="1"></textarea>
     <button class="send-btn" id="send-btn" onclick="sendText()">
       <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
@@ -318,18 +352,24 @@ function setInputEnabled(enabled) {
 // ── Send text ──────────────────────────────────────────
 function sendText() {
   if (isThinking) return;
-  const inp = document.getElementById('chat-input');
-  const val = inp.value.trim();
-  if (!val) return;
+  const inp  = document.getElementById('chat-input');
+  const val  = inp.value.trim();
+  const file = pendingFile;
+  if (!val && !file) return;
   inp.value = '';
   inp.style.height = '';
   clearQuickReplies();
-  userSay(val);
-  handleUserInput(val);
+  if (file) {
+    userSay((val || '') + (val ? ' ' : '') + '[📎 ' + file.name + ']');
+  } else {
+    userSay(val);
+  }
+  clearFile();
+  handleUserInput(val || 'Please read the attached file and add relevant details to the itinerary.', file);
 }
 
 // ── Trip selection (before AI takes over) ─────────────
-async function handleUserInput(input) {
+async function handleUserInput(input, file) {
   if (!currentTrip) {
     if (TRIPS[input]) {
       currentTrip = input;
@@ -351,7 +391,7 @@ async function handleUserInput(input) {
   }
 
   // Hand off to Claude
-  await askClaude(input);
+  await askClaude(input, file);
 }
 
 // ── Load trip from GitHub ──────────────────────────────
@@ -410,6 +450,60 @@ async function pushFile(newContent, message) {
   }
 }
 
+// ── File attachment ────────────────────────────────────
+let pendingFile = null; // { base64, mediaType, name, isImage }
+
+function handleFileSelect(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = '';
+
+  const isImage = file.type.startsWith('image/');
+  const isPDF   = file.type === 'application/pdf';
+  if (!isImage && !isPDF) { systemMsg('Only images and PDFs are supported.', true); return; }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl  = e.target.result;
+    const base64   = dataUrl.split(',')[1];
+    pendingFile    = { base64: base64, mediaType: file.type, name: file.name, isImage: isImage };
+    showFilePreview(file.name, isImage ? dataUrl : null);
+  };
+  reader.readAsDataURL(file);
+}
+
+function showFilePreview(name, thumbSrc) {
+  const fp  = document.getElementById('file-preview');
+  fp.innerHTML = '';
+  const item = document.createElement('div');
+  item.className = 'file-preview-item';
+  if (thumbSrc) {
+    const img = document.createElement('img');
+    img.className = 'file-preview-thumb';
+    img.src = thumbSrc;
+    item.appendChild(img);
+  } else {
+    const icon = document.createElement('span');
+    icon.textContent = '📄';
+    item.appendChild(icon);
+  }
+  const nameEl = document.createElement('span');
+  nameEl.className = 'file-preview-name';
+  nameEl.textContent = name;
+  item.appendChild(nameEl);
+  const rm = document.createElement('button');
+  rm.className = 'file-remove-btn';
+  rm.textContent = '×';
+  rm.onclick = clearFile;
+  item.appendChild(rm);
+  fp.appendChild(item);
+}
+
+function clearFile() {
+  pendingFile = null;
+  document.getElementById('file-preview').innerHTML = '';
+}
+
 // ── Conversation history ───────────────────────────────
 let conversationHistory = [];
 
@@ -418,7 +512,7 @@ function resetConversation() {
 }
 
 // ── Ask Claude ─────────────────────────────────────────
-async function askClaude(userMessage) {
+async function askClaude(userMessage, file) {
   setInputEnabled(false);
 
   // Typing indicator
@@ -476,7 +570,19 @@ Rules:
         model:      'claude-haiku-4-5-20251001',
         max_tokens: 4096,
         system:     systemPrompt,
-        messages:   conversationHistory.concat([{ role: 'user', content: userMessage }])
+        messages:   conversationHistory.concat([{
+          role: 'user',
+          content: file ? (function() {
+            var parts = [];
+            if (file.isImage) {
+              parts.push({ type: 'image', source: { type: 'base64', media_type: file.mediaType, data: file.base64 } });
+            } else {
+              parts.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: file.base64 } });
+            }
+            if (userMessage) parts.push({ type: 'text', text: userMessage });
+            return parts;
+          })() : userMessage
+        }])
       })
     });
 
