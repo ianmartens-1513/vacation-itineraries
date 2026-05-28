@@ -1,0 +1,80 @@
+TITLE: Montana Trip 2026
+SUBTITLE: Jackson Hole · Grand Teton · Yellowstone · Missoula
+
+STAT: 9 days | Total trip days
+STAT: 3 | States visited
+STAT: 4 | Destinations
+STAT: Jun 27 | Departure
+STAT: Jul 5 | Return
+
+PHASE: Phase 1 | Jun 27–29 | Jackson Hole & Grand Teton | 3 nights · Teton Mountain Lodge & Spa | primary | Land in Jackson Hole, pick up both rental cars, tour the town, catch the Jackson Rodeo, and spend two full days exploring Grand Teton National Park.
+PHASE: Phase 2 | Jun 30–Jul 2 | Yellowstone National Park | 3 nights · Canyon Lodge & Cabins | sky | Drive 2 hrs 15 min north to Yellowstone. Three full days to explore geysers, hot springs, wildlife, and the Grand Canyon of the Yellowstone.
+PHASE: Phase 3 | Jul 3–4 | Missoula — Rehearsal & Wedding | 2 nights · Residence Inn Missoula Downtown | amber | Drive 4 hrs 20 min west to Missoula. Friday rehearsal, then the wedding on Independence Day, July 4th.
+PHASE: Phase 4 | Jul 5 | Departure from Bozeman | Drive 3 hrs · drop cars · fly home | slate | Morning drive to Bozeman, return both rental cars, and split — one group flies to CLT, another to San Diego for the ADF Conference.
+
+DAY: Jun 27 | Saturday — Arrival Day | Jackson Hole, Wyoming | primary | Phase 1
+flight: Flight DCA → JAC · American Airlines | Departs 6:30 AM · Arrives 11:10 AM
+flight: Flight CLT → JAC · American Airlines | Departs 8:55 AM · Arrives 11:10 AM
+---
+car: Pick up Rental Car — Enterprise | 12:00 PM
+car: Pick up Rental Car — Hertz | 12:00 PM
+---
+activity: Tour Jackson & Jackson Hole
+activity: Jackson Rodeo
+---
+hotel: Teton Mountain Lodge & Spa | $1,677 / night | confirm: 63792SF131396 | warn: Cancel 14 days in advance
+
+DAY: Jun 28 | Sunday — Grand Teton | Grand Teton National Park, Wyoming | primary | Phase 1
+church: Church
+activity: Tour Grand Teton National Park
+---
+hotel: Teton Mountain Lodge & Spa | $1,677 / night
+
+DAY: Jun 29 | Monday — Grand Teton | Grand Teton National Park, Wyoming | primary | Phase 1
+activity: Tour Grand Teton National Park
+---
+hotel: Teton Mountain Lodge & Spa | $1,677 / night
+
+DAY: Jun 30 | Tuesday — Drive to Yellowstone | Yellowstone National Park, Wyoming | sky | Phase 2
+drive: Drive to Yellowstone | ~2 hrs 15 min from Grand Teton
+activity: Tour Yellowstone National Park
+---
+hotel: Canyon Lodge & Cabins | $434 / room / night | confirm: 72069478417535
+
+DAY: Jul 1 | Wednesday — Yellowstone | Yellowstone National Park, Wyoming | sky | Phase 2
+activity: Tour Yellowstone National Park
+---
+hotel: Canyon Lodge & Cabins | $434 / room / night
+
+DAY: Jul 2 | Thursday — Yellowstone | Yellowstone National Park, Wyoming | sky | Phase 2
+activity: Tour Yellowstone National Park
+---
+hotel: Canyon Lodge & Cabins | $585 / room / night | confirm: 72069628266728
+
+DAY: Jul 3 | Friday — Drive to Missoula | Missoula, Montana | amber | Phase 3
+drive: Drive to Missoula Area | ~4 hrs 20 min from Yellowstone
+rehearsal: Rehearsal — Location TBD | 5:00 PM · Off-site with officiant, bridal party, families, bride & groom
+dinner: Rehearsal Dinner — Residence Inn Courtyard | 5:30 PM · Spouses & babies invited
+drinks: Welcome Drinks — Residence Inn Courtyard | 7:30 PM · All guests invited
+---
+hotel: Residence Inn Missoula Downtown | $712 ($356 / room)
+
+DAY: Jul 4 | Saturday — Wedding Day 🎉 | Missoula, Montana | amber | Phase 3
+event: Groomsmen Arrive at Venue — The White Raven | 12:15 PM · 218 Lost Lantern Trail, Alberton, MT · ~25 min from Missoula
+rehearsal: On-site Rehearsal | 1:00 PM · With day-of coordinator, officiant, bridal party & groom
+wedding: Ceremony & Reception | 4:00 – 10:00 PM · Independence Day!
+---
+hotel: Residence Inn Missoula Downtown | $712 ($357 / room)
+
+DAY: Jul 5 | Sunday — Departure from Bozeman | Bozeman, Montana | slate | Phase 4
+drive: Drive to Bozeman | ~3 hrs from Missoula
+car: Drop off Rental Car — Enterprise | 11:45 AM · Bozeman Airport
+car: Drop off Rental Car — Hertz | 11:46 AM · Bozeman Airport
+---
+flight: Flight BZN → CLT · American Airlines | Departs 12:25 PM · Arrives 6:25 PM
+flight: Flight BZN → SAN · Alaska Airlines | Departs 1:50 PM · Arrives 3:34 PM
+---
+hotel: Marriott Marquis San Diego Marina | $462 / night · ADF Conference (Jul 5–10)
+
+DAY: Jul 10 | Friday — Return from San Diego | San Diego → Washington D.C. | slate | San Diego
+flight: Flight SAN → IAD · American Airlines | Departs 9:40 AM · Arrives 5:54 PM

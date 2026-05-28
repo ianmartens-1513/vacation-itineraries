@@ -6,25 +6,42 @@
   <title>Greece 2026 — Martens Family</title>
   <style>
     :root {
-      --primary: #1a4a7a;
-      --accent: #c0932a;
-      --bg: #f4f1ec;
-      --text: #1c1c1c;
-      --text-muted: #6b6560;
-      --border: #e2ddd7;
+      --bg: #f2f6fc;
       --surface: #ffffff;
-      --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+      --surface-alt: #f7fafd;
+      --border: #d8e5f0;
+      --primary: #1a4a7a;
+      --primary-light: #2a6aaa;
+      --accent: #c0932a;
+      --accent-light: #fdf3dc;
+      --sky: #3a8fbf;
+      --sky-light: #daeef8;
+      --text: #1a1a2e;
+      --text-muted: #5a6a80;
+      --text-light: #96a8bc;
+      --gold: #c0932a;
+      --gold-light: #fdf3dc;
+      --red: #8b3a3a;
+      --red-light: #fdf0f0;
+      --green: #2d6a4f;
+      --green-light: #e8f5ee;
+      --white-sand: #fdf8f0;
       --radius: 10px;
+      --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      line-height: 1.5;
     }
+
+    /* ─── HERO ─── */
     .hero {
-      background: linear-gradient(150deg, #0d2a4a 0%, #1a4a7a 40%, #2a6aaa 80%, #3a7aba 100%);
+      background: linear-gradient(150deg, #0a1f3a 0%, #1a3a6a 30%, #1a5a9a 65%, #2a7abf 100%);
       color: white;
       padding: 64px 24px 52px;
       text-align: center;
@@ -35,8 +52,8 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 120px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpolygon points='0,120 0,80 180,40 360,70 540,30 720,65 900,20 1080,55 1260,35 1440,55 1440,120' fill='rgba(255,255,255,0.05)'/%3E%3C/svg%3E") bottom/cover no-repeat;
+      height: 160px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160'%3E%3Cellipse cx='720' cy='160' rx='900' ry='80' fill='rgba(255,255,255,0.04)'/%3E%3Cellipse cx='300' cy='160' rx='400' ry='60' fill='rgba(255,255,255,0.03)'/%3E%3Cellipse cx='1100' cy='160' rx='350' ry='55' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") bottom/cover no-repeat;
     }
     .hero-eyebrow {
       display: inline-block;
@@ -47,7 +64,7 @@
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       position: relative;
     }
     .hero h1 {
@@ -56,62 +73,833 @@
       letter-spacing: -0.03em;
       position: relative;
       margin-bottom: 10px;
+      line-height: 1.1;
     }
     .hero h2 {
       font-size: clamp(0.9rem, 2vw, 1.2rem);
       font-weight: 400;
       opacity: 0.65;
       position: relative;
-    }
-    .main {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 80px 24px;
-      text-align: center;
-    }
-    .coming-soon-icon { font-size: 4rem; margin-bottom: 20px; }
-    .coming-soon-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-    .coming-soon-text {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
       margin-bottom: 32px;
     }
-    .back-link {
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .hero-stat-value { font-size: 1.7rem; font-weight: 700; line-height: 1; }
+    .hero-stat-label { font-size: 0.68rem; opacity: 0.55; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+    /* ─── NAV ─── */
+    .nav-wrap {
+      background: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .nav {
+      display: flex;
+      max-width: 960px;
+      margin: 0 auto;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.55);
+      padding: 15px 22px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .nav-btn:hover { color: rgba(255,255,255,0.85); }
+    .nav-btn.active { color: #fff; border-bottom-color: var(--gold); }
+
+    /* ─── BACK LINK ─── */
+    .back-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .back-bar a {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      padding: 10px 20px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      width: fit-content;
+    }
+    .back-bar a:hover { color: var(--primary); }
+
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+    }
+
+    /* ─── TABS ─── */
+    .tab { display: none; }
+    .tab.active { display: block; }
+
+    /* ─── SECTION LABELS ─── */
+    .section-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .section-gap { margin-top: 36px; }
+
+    /* ─── OVERVIEW STATS ─── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+    .stat-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--primary); line-height: 1.2; }
+    .stat-label { font-size: 0.77rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ─── PHASE CARDS ─── */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .phase-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+    }
+    .phase-card.gold  { border-left-color: var(--gold); }
+    .phase-card.slate { border-left-color: #7a8fa0; }
+    .phase-card.purple { border-left-color: #8b2a6a; }
+    .phase-card.sky   { border-left-color: var(--sky); }
+    .phase-card.amber { border-left-color: var(--accent); }
+    .phase-num   { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
+    .phase-name  { font-size: 0.95rem; font-weight: 700; margin-bottom: 3px; }
+    .phase-dates { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; }
+    .phase-desc  { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ─── DAY CARDS ─── */
+    .day-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-alt);
+    }
+    .day-num {
       background: var(--primary);
       color: white;
-      text-decoration: none;
-      padding: 12px 24px;
       border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      transition: opacity 0.15s;
+      width: 46px; height: 46px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      gap: 2px;
     }
-    .back-link:hover { opacity: 0.85; }
+    .day-num span { font-size: 1.15rem; font-weight: 800; }
+    .day-title { flex: 1; min-width: 0; }
+    .day-name     { font-size: 0.95rem; font-weight: 700; }
+    .day-location { font-size: 0.77rem; color: var(--text-muted); }
+    .phase-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-blue  { background: var(--sky-light); color: var(--sky); }
+    .badge-gold  { background: var(--gold-light); color: #7a5c0a; }
+    .badge-slate { background: #eef0f2; color: #5a6a7a; }
+    .badge-green { background: var(--green-light); color: var(--green); }
+
+    .day-body { padding: 16px 18px; }
+
+    .event-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .event-item { display: flex; gap: 11px; align-items: flex-start; }
+    .event-icon {
+      width: 30px; height: 30px;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .bg-flight   { background: var(--sky-light); }
+    .bg-car      { background: var(--accent-light); }
+    .bg-hotel    { background: var(--green-light); }
+    .bg-activity { background: #f0edf8; }
+    .bg-taxi     { background: #fff8e1; }
+    .bg-warn     { background: var(--red-light); }
+    .bg-note     { background: #f0f4ff; }
+    .bg-drive    { background: #fff3e0; }
+    .bg-event    { background: #fce4ec; }
+    .bg-church   { background: #f5f0ff; }
+
+    .event-label  { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .event-detail { font-size: 0.78rem; color: var(--text-muted); margin-top: 1px; }
+    .event-confirm {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 0.7rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .event-warn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 5px;
+      font-size: 0.72rem;
+      color: var(--red);
+      font-weight: 500;
+    }
+    .ev-divider { border: none; border-top: 1px dashed var(--border); margin: 4px 0; }
+
+    /* ─── LODGING ─── */
+    .lodge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .lodge-head {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+    }
+    .lodge-emoji { font-size: 2rem; flex-shrink: 0; }
+    .lodge-name  { font-size: 1rem; font-weight: 700; }
+    .lodge-sub   { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+    .lodge-body  { padding: 16px 20px; }
+    .lodge-grid  { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+    .meta-label  { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); margin-bottom: 3px; }
+    .meta-value  { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .meta-value.mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem; letter-spacing: 0.04em; }
+    .meta-value.warn { color: var(--red); }
+
+    /* ─── LOGISTICS ─── */
+    .logistics-block { margin-bottom: 30px; }
+    .block-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+      padding-bottom: 4px;
+      margin-bottom: 14px;
+    }
+
+    .flight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 32px 1fr auto;
+      align-items: center;
+      gap: 10px;
+    }
+    .f-code    { font-size: 1.5rem; font-weight: 800; color: var(--primary); line-height: 1; }
+    .f-city    { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+    .f-time    { font-size: 0.85rem; font-weight: 600; margin-top: 4px; }
+    .f-arrow   { text-align: center; font-size: 1rem; color: var(--text-light); }
+    .f-meta    { text-align: right; }
+    .f-airline { font-size: 0.72rem; font-weight: 700; color: var(--sky); text-transform: uppercase; letter-spacing: 0.06em; }
+    .f-detail  { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-top: 3px; }
+    .f-date    { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    .car-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .car-emoji  { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+    .car-info   { flex: 1; }
+    .car-name   { font-size: 0.92rem; font-weight: 700; }
+    .car-detail { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; }
+    .car-confirm { display: inline-block; margin-top: 6px; font-size: 0.7rem; font-family: 'SF Mono', 'Fira Code', monospace; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; color: var(--text-muted); }
+
+    .warn-box {
+      background: var(--red-light);
+      border: 1px solid #f0c0c0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.78rem;
+      color: var(--red);
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+    .warn-box strong { display: block; margin-bottom: 4px; }
+
+    /* ─── LOADING / ERROR ─── */
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .loading-spinner {
+      display: inline-block;
+      width: 28px; height: 28px;
+      border: 3px solid var(--border);
+      border-top-color: var(--sky);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-bottom: 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--red);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 580px) {
+      .flight-card { grid-template-columns: 1fr 1fr; }
+      .f-arrow { display: none; }
+      .f-meta { text-align: left; }
+      .hero-stats { gap: 24px; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- ══════════ HERO ══════════ -->
   <header class="hero">
-    <div class="hero-eyebrow">Martens Family · 2026</div>
-    <h1>Greece 2026</h1>
-    <h2>Coming Soon</h2>
+    <div class="hero-eyebrow">Martens Family · Summer 2026</div>
+    <h1 id="hero-title">Greece 2026</h1>
+    <h2 id="hero-subtitle">Athens &nbsp;·&nbsp; Halkidiki &nbsp;·&nbsp; Thessaloniki &nbsp;·&nbsp; Kilkis</h2>
+    <div class="hero-stats" id="hero-stats-container">
+      <!-- Rendered by JS -->
+    </div>
   </header>
 
+  <!-- ══════════ NAV ══════════ -->
+  <nav class="nav-wrap">
+    <div class="nav">
+      <button class="nav-btn active" onclick="showTab('overview', this)">Overview</button>
+      <button class="nav-btn" onclick="showTab('itinerary', this)">Day by Day</button>
+      <button class="nav-btn" onclick="showTab('lodging', this)">Lodging</button>
+      <button class="nav-btn" onclick="showTab('logistics', this)">Flights &amp; Transport</button>
+    </div>
+  </nav>
+
+  <div class="back-bar">
+    <a href="index.html">← All Trips</a>
+  </div>
+
+  <!-- ══════════ CONTENT ══════════ -->
   <main class="main">
-    <div class="coming-soon-icon">🏛️</div>
-    <div class="coming-soon-title">Itinerary in Planning</div>
-    <div class="coming-soon-text">Details for the Greece 2026 trip are still being worked out. Check back soon for the full itinerary.</div>
-    <a class="back-link" href="index.html">← Back to All Trips</a>
+
+    <!-- ── OVERVIEW ── -->
+    <div class="tab active" id="tab-overview">
+      <div class="section-eyebrow">01 · Trip at a glance</div>
+      <div class="section-title">Quick Stats</div>
+      <div class="stat-grid" id="stats-container">
+        <div class="loading-state"><div class="loading-spinner"></div><div>Loading…</div></div>
+      </div>
+      <div class="section-gap"></div>
+      <div class="section-eyebrow">02 · Trip phases</div>
+      <div class="section-title">How the Trip is Structured</div>
+      <div class="phase-grid" id="phases-container"></div>
+    </div>
+
+    <!-- ── DAY BY DAY ── -->
+    <div class="tab" id="tab-itinerary">
+      <div class="section-eyebrow">03 · Day-by-day</div>
+      <div class="section-title">Full Itinerary</div>
+      <div id="days-container"></div>
+    </div>
+
+    <!-- ── LODGING ── -->
+    <div class="tab" id="tab-lodging">
+      <div class="section-eyebrow">04 · Where you're staying</div>
+      <div class="section-title">Accommodations</div>
+      <div id="lodging-container"></div>
+    </div>
+
+    <!-- ── LOGISTICS ── -->
+    <div class="tab" id="tab-logistics">
+      <div class="section-eyebrow">05 · Getting there &amp; around</div>
+      <div class="section-title">Flights &amp; Transport</div>
+      <div id="logistics-container"></div>
+    </div>
+
   </main>
+
+  <script>
+    // ── TAB SWITCHING ────────────────────────────────────
+    function showTab(name, btn) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // ── PARSER ───────────────────────────────────────────
+    function parseTripData(text) {
+      const lines = text.split('\n');
+      const data = { title: '', subtitle: '', stats: [], phases: [], days: [] };
+      let currentDay = null;
+
+      for (let raw of lines) {
+        const line = raw.trim();
+        if (!line) continue;
+
+        if (line.startsWith('TITLE:')) {
+          data.title = line.slice(6).trim();
+        } else if (line.startsWith('SUBTITLE:')) {
+          data.subtitle = line.slice(9).trim();
+        } else if (line.startsWith('STAT:')) {
+          const rest = line.slice(5).trim();
+          const idx  = rest.indexOf('|');
+          if (idx !== -1) {
+            data.stats.push({ value: rest.slice(0, idx).trim(), label: rest.slice(idx + 1).trim() });
+          }
+        } else if (line.startsWith('PHASE:')) {
+          const rest  = line.slice(6).trim();
+          const parts = rest.split('|').map(s => s.trim());
+          // PHASE: num | dates | name | nights | color | desc
+          data.phases.push({
+            num:    parts[0] || '',
+            dates:  parts[1] || '',
+            name:   parts[2] || '',
+            nights: parts[3] || '',
+            color:  parts[4] || 'primary',
+            desc:   parts[5] || ''
+          });
+        } else if (line.startsWith('DAY:')) {
+          const rest  = line.slice(4).trim();
+          const parts = rest.split('|').map(s => s.trim());
+          // DAY: date | name | location | color | badge
+          currentDay = {
+            date:     parts[0] || '',
+            name:     parts[1] || '',
+            location: parts[2] || '',
+            color:    parts[3] || 'primary',
+            badge:    parts[4] || '',
+            events:   []
+          };
+          data.days.push(currentDay);
+        } else if (line === '---') {
+          if (currentDay) {
+            currentDay.events.push({ type: 'divider' });
+          }
+        } else if (currentDay && line.includes(':')) {
+          const colonIdx = line.indexOf(':');
+          const type     = line.slice(0, colonIdx).trim().toLowerCase();
+          const rest     = line.slice(colonIdx + 1).trim();
+
+          // Parse segments separated by |
+          const segments = rest.split('|').map(s => s.trim());
+          const label    = segments[0] || '';
+          let detail     = segments[1] || '';
+          let confirm    = '';
+          let warn       = '';
+
+          for (let i = 1; i < segments.length; i++) {
+            const seg = segments[i].trim();
+            if (seg.startsWith('confirm:')) {
+              confirm = seg.slice(8).trim();
+            } else if (seg.startsWith('warn:')) {
+              warn = seg.slice(5).trim();
+            } else if (i === 1) {
+              detail = seg;
+            }
+          }
+
+          currentDay.events.push({ type, label, detail, confirm, warn });
+        }
+      }
+
+      return data;
+    }
+
+    // ── COLOR / BADGE MAPS ───────────────────────────────
+    function dayNumBg(color) {
+      const map = {
+        primary: 'var(--primary)',
+        blue:    'var(--sky)',
+        sky:     'var(--sky)',
+        gold:    '#b8860b',
+        amber:   'var(--accent)',
+        slate:   '#5a6a7a',
+        purple:  '#8b2a6a'
+      };
+      return map[color] || 'var(--primary)';
+    }
+
+    function badgeHtml(color, text) {
+      const classMap = {
+        primary: 'badge-blue',
+        blue:    'badge-blue',
+        sky:     'badge-blue',
+        gold:    'badge-gold',
+        amber:   'badge-gold',
+        slate:   'badge-slate'
+      };
+      if (color === 'purple') {
+        return `<span class="phase-badge" style="background:#f5e6f0;color:#8b2a6a;">${esc(text)}</span>`;
+      }
+      const cls = classMap[color] || 'badge-blue';
+      return `<span class="phase-badge ${cls}">${esc(text)}</span>`;
+    }
+
+    function eventMeta(type) {
+      const map = {
+        flight:   { icon: '✈️',  bg: 'bg-flight'   },
+        taxi:     { icon: '🚐',  bg: 'bg-taxi'     },
+        car:      { icon: '🚗',  bg: 'bg-car'      },
+        hotel:    { icon: '🏨',  bg: 'bg-hotel'    },
+        activity: { icon: '🎯',  bg: 'bg-activity' },
+        drive:    { icon: '🚙',  bg: 'bg-drive'    },
+        event:    { icon: '🎉',  bg: 'bg-event'    },
+        wedding:  { icon: '💒',  bg: 'bg-event'    },
+        rehearsal:{ icon: '💍',  bg: 'bg-event'    },
+        church:   { icon: '⛪',  bg: 'bg-church',  style: 'background:#f5e6f0' },
+        note:     { icon: '📝',  bg: 'bg-note'     },
+        beach:    { icon: '🏖️',  bg: 'bg-activity' },
+        tour:     { icon: '🏛️',  bg: 'bg-activity' },
+        dinner:   { icon: '🍽️',  bg: 'bg-event'    },
+        drinks:   { icon: '🥂',  bg: 'bg-event'    },
+        coffee:   { icon: '☕',  bg: 'bg-activity' }
+      };
+      return map[type] || { icon: '📌', bg: 'bg-activity' };
+    }
+
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ── STAT ICON HEURISTIC ──────────────────────────────
+    function statIcon(value, label) {
+      const v = (value + ' ' + label).toLowerCase();
+      if (v.includes('night'))    return '🌙';
+      if (v.includes('depart') || v.includes('pm') || v.includes('am') || v.includes('flight') || v.includes('clt') || v.includes('ath')) return '✈️';
+      if (v.includes('wedding') || v.includes('ceremony')) return '💒';
+      if (v.includes('day'))      return '📅';
+      if (v.includes('state'))    return '🗺️';
+      if (v.includes('destinat')) return '📍';
+      if (v.includes('hotel') || v.includes('lodge')) return '🏨';
+      return '📌';
+    }
+
+    // ── RENDERER ─────────────────────────────────────────
+    function render(data) {
+      // Hero
+      document.getElementById('hero-title').textContent    = data.title;
+      document.getElementById('hero-subtitle').innerHTML   = data.subtitle.replace(/·/g, '&nbsp;·&nbsp;');
+
+      // Hero stats (compact — just value + label)
+      const heroStats = document.getElementById('hero-stats-container');
+      if (data.stats.length) {
+        heroStats.innerHTML = data.stats.map(s => `
+          <div>
+            <div class="hero-stat-value">${esc(s.value)}</div>
+            <div class="hero-stat-label">${esc(s.label.split('·')[0].trim())}</div>
+          </div>`).join('');
+      }
+
+      // Stat cards
+      const statsEl = document.getElementById('stats-container');
+      if (data.stats.length) {
+        statsEl.innerHTML = data.stats.map(s => `
+          <div class="stat-card">
+            <div class="stat-icon">${statIcon(s.value, s.label)}</div>
+            <div class="stat-value">${esc(s.value)}</div>
+            <div class="stat-label">${esc(s.label)}</div>
+          </div>`).join('');
+      } else {
+        statsEl.innerHTML = '';
+      }
+
+      // Phase cards
+      const phasesEl = document.getElementById('phases-container');
+      phasesEl.innerHTML = data.phases.map(p => {
+        const colorCls = ['gold','slate','purple','sky','amber'].includes(p.color) ? p.color : '';
+        return `
+          <div class="phase-card ${colorCls}">
+            <div class="phase-num">${esc(p.num)} · ${esc(p.dates)}</div>
+            <div class="phase-name">${esc(p.name)}</div>
+            <div class="phase-dates">${esc(p.nights)}</div>
+            <div class="phase-desc">${esc(p.desc)}</div>
+          </div>`;
+      }).join('');
+
+      // Day cards
+      const daysEl = document.getElementById('days-container');
+      daysEl.innerHTML = data.days.map(day => {
+        const dateParts  = day.date.split(' ');
+        const mon        = dateParts[0] || '';
+        const num        = dateParts[1] || '';
+        const bg         = dayNumBg(day.color);
+        const badge      = badgeHtml(day.color, day.badge);
+
+        const eventsHtml = day.events.map(ev => {
+          if (ev.type === 'divider') return '<hr class="ev-divider">';
+          const meta  = eventMeta(ev.type);
+          const styleAttr = meta.style ? ` style="${meta.style}"` : '';
+          let inner = `<div class="event-label">${esc(ev.label)}</div>`;
+          if (ev.detail)  inner += `<div class="event-detail">${esc(ev.detail)}</div>`;
+          if (ev.confirm) {
+            // Multiple confirms separated by ·
+            const confirms = ev.confirm.split('·').map(c => c.trim()).filter(Boolean);
+            inner += confirms.map(c => `<div class="event-confirm">Confirm # ${esc(c)}</div>`).join('');
+          }
+          if (ev.warn)    inner += `<div class="event-warn">⚠️ ${esc(ev.warn)}</div>`;
+          return `
+            <li class="event-item">
+              <div class="event-icon ${meta.bg}"${styleAttr}>${meta.icon}</div>
+              <div>${inner}</div>
+            </li>`;
+        }).join('');
+
+        return `
+          <div class="day-card">
+            <div class="day-header">
+              <div class="day-num" style="background:${bg}">${esc(mon)}<span>${esc(num)}</span></div>
+              <div class="day-title">
+                <div class="day-name">${esc(day.name)}</div>
+                <div class="day-location">${esc(day.location)}</div>
+              </div>
+              ${badge}
+            </div>
+            <div class="day-body">
+              <ul class="event-list">${eventsHtml}</ul>
+            </div>
+          </div>`;
+      }).join('');
+
+      // Lodging tab — group hotel events
+      renderLodging(data);
+
+      // Logistics tab — flights & cars
+      renderLogistics(data);
+    }
+
+    function renderLodging(data) {
+      const el = document.getElementById('lodging-container');
+      // Collect all hotel events, dedup by name
+      const hotelMap = new Map();
+      for (const day of data.days) {
+        for (const ev of day.events) {
+          if (ev.type !== 'hotel') continue;
+          const key = ev.label;
+          if (!hotelMap.has(key)) {
+            hotelMap.set(key, { label: ev.label, detail: ev.detail, confirm: ev.confirm, warn: ev.warn, days: [] });
+          }
+          hotelMap.get(key).days.push(day.date);
+        }
+      }
+
+      if (!hotelMap.size) { el.innerHTML = '<p style="color:var(--text-muted);font-size:0.88rem;">No lodging data found.</p>'; return; }
+
+      const hotelEmojis = ['🏛️','🌊','✈️','🏨','🏩','🏰'];
+      let idx = 0;
+      let html = '';
+      for (const [, h] of hotelMap) {
+        const emoji = hotelEmojis[idx++ % hotelEmojis.length];
+        const daysStr = h.days.length > 1
+          ? h.days[0] + ' – ' + h.days[h.days.length - 1] + ' · ' + h.days.length + ' nights'
+          : h.days[0] + ' · 1 night';
+        let bodyHtml = `<div class="lodge-grid">`;
+        bodyHtml += `<div><div class="meta-label">Dates</div><div class="meta-value">${esc(daysStr)}</div></div>`;
+        if (h.detail) bodyHtml += `<div><div class="meta-label">Detail</div><div class="meta-value">${esc(h.detail)}</div></div>`;
+        if (h.confirm) {
+          const confirms = h.confirm.split('·').map(c => c.trim()).filter(Boolean);
+          confirms.forEach((c, i) => {
+            bodyHtml += `<div><div class="meta-label">Confirmation${confirms.length > 1 ? ' #' + (i+1) : ''}</div><div class="meta-value mono">${esc(c)}</div></div>`;
+          });
+        }
+        if (h.warn) bodyHtml += `<div><div class="meta-label">Note</div><div class="meta-value warn">⚠️ ${esc(h.warn)}</div></div>`;
+        bodyHtml += '</div>';
+
+        html += `
+          <div class="lodge-card">
+            <div class="lodge-head">
+              <div class="lodge-emoji">${emoji}</div>
+              <div>
+                <div class="lodge-name">${esc(h.label)}</div>
+                <div class="lodge-sub">${esc(daysStr)}</div>
+              </div>
+            </div>
+            <div class="lodge-body">${bodyHtml}</div>
+          </div>`;
+      }
+      el.innerHTML = html;
+    }
+
+    function renderLogistics(data) {
+      const el = document.getElementById('logistics-container');
+      // Collect flights and cars
+      const flights = [];
+      const cars    = [];
+      const taxis   = [];
+
+      for (const day of data.days) {
+        for (const ev of day.events) {
+          if (ev.type === 'flight') flights.push({ ...ev, date: day.date });
+          if (ev.type === 'car')    cars.push({ ...ev, date: day.date });
+          if (ev.type === 'taxi')   taxis.push({ ...ev, date: day.date });
+        }
+      }
+
+      let html = '';
+
+      if (flights.length) {
+        html += `<div class="logistics-block"><div class="block-title">Flights</div>`;
+        for (const f of flights) {
+          html += `
+            <div class="car-card">
+              <div class="car-emoji">✈️</div>
+              <div class="car-info">
+                <div class="car-name">${esc(f.label)}</div>
+                ${f.detail ? `<div class="car-detail">${esc(f.detail)}</div>` : ''}
+                ${f.confirm ? `<div class="car-confirm">Confirm # ${esc(f.confirm)}</div>` : ''}
+                ${f.warn    ? `<div class="event-warn" style="margin-top:6px">⚠️ ${esc(f.warn)}</div>` : ''}
+              </div>
+            </div>`;
+        }
+        html += '</div>';
+      }
+
+      if (cars.length) {
+        html += `<div class="logistics-block"><div class="block-title">Rental Vehicles</div>`;
+        for (const c of cars) {
+          html += `
+            <div class="car-card">
+              <div class="car-emoji">🚗</div>
+              <div class="car-info">
+                <div class="car-name">${esc(c.label)}</div>
+                ${c.detail  ? `<div class="car-detail">${esc(c.detail)}</div>` : ''}
+                ${c.confirm ? `<div class="car-confirm">Booking # ${esc(c.confirm)}</div>` : ''}
+                ${c.warn    ? `<div class="event-warn" style="margin-top:6px">⚠️ ${esc(c.warn)}</div>` : ''}
+              </div>
+            </div>`;
+        }
+        html += '</div>';
+      }
+
+      if (taxis.length) {
+        html += `<div class="logistics-block"><div class="block-title">Transfers</div>`;
+        for (const t of taxis) {
+          html += `
+            <div class="car-card">
+              <div class="car-emoji">🚐</div>
+              <div class="car-info">
+                <div class="car-name">${esc(t.label)}</div>
+                ${t.detail  ? `<div class="car-detail">${esc(t.detail)}</div>` : ''}
+                ${t.confirm ? `<div class="car-confirm">Confirm # ${esc(t.confirm)}</div>` : ''}
+                ${t.warn    ? `<div class="warn-box"><strong>⚠️ Important</strong>${esc(t.warn)}</div>` : ''}
+              </div>
+            </div>`;
+        }
+        html += '</div>';
+      }
+
+      if (!html) html = '<p style="color:var(--text-muted);font-size:0.88rem;">No logistics data found.</p>';
+      el.innerHTML = html;
+    }
+
+    // ── FETCH & INIT ─────────────────────────────────────
+    async function init() {
+      try {
+        const resp = await fetch('data/greece-2026.txt?t=' + Date.now());
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const text = await resp.text();
+        const data = parseTripData(text);
+        render(data);
+      } catch (e) {
+        document.getElementById('stats-container').innerHTML =
+          `<div class="error-state">Could not load trip data.<br><small>${esc(e.message)}</small></div>`;
+        document.getElementById('days-container').innerHTML =
+          `<div class="error-state">Could not load trip data.<br><small>${esc(e.message)}</small></div>`;
+      }
+    }
+
+    init();
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,55 @@
+TITLE: Greece 2026
+SUBTITLE: Athens · Halkidiki · Thessaloniki · Kilkis
+
+STAT: 7 nights | Total nights in Greece
+STAT: 6:45 PM | Depart CLT Jul 20 · Arrive ATH Jul 21 12:15 PM · AA 326
+STAT: 12:00 PM | Depart ATH Jul 28 · Arrive CLT 4:40 PM · AA 325
+STAT: Jul 26 | Wedding — Drosato, Kilkis
+
+PHASE: Phase 1 | Jul 21–23 | Athens | 2 nights · Attalos Hotel | blue | Arrive via AA 326, George's Taxi transfers the group to the Attalos Hotel. Two days to explore the Acropolis, Plaka, and the city.
+PHASE: Phase 2 | Jul 23–27 | Northern Greece — Wedding Week | 4 nights · Rental van | gold | Pick up the Mercedes-Benz Vito and drive north. Welcome night Jul 23, beach day in Halkidiki Jul 24, Thessaloniki tour Jul 25, and the wedding on Jul 26.
+PHASE: Phase 3 | Jul 27–28 | Athens Airport — Departure | 1 night · Holiday Inn | slate | Return to Athens, check into the Holiday Inn near the airport. Drop off the rental van in the morning and fly home.
+
+DAY: Jul 21 | Tuesday — Arrival in Athens | Athens, Greece | primary | Phase 1
+flight: Arrive Athens International Airport | AA 326 · Arrives 12:15 PM from CLT (departs Jul 20 at 6:45 PM)
+---
+taxi: George's Taxi — Airport Pickup | Meet driver in Arrivals Hall holding sign for "Michael Capeta" · Do NOT exit the building | warn: If delayed 60+ min after landing call or text driver immediately
+activity: Transfer to Attalos Hotel Athens | Check-in from 2:00 PM
+---
+hotel: Attalos Hotel Athens | 3 rooms · Bed & Breakfast · Check-in 2:00 PM | confirm: 57758645
+
+DAY: Jul 22 | Wednesday — Athens | Athens, Greece | primary | Phase 1
+activity: Explore Athens | Acropolis, Plaka, Monastiraki & more
+---
+hotel: Attalos Hotel Athens | Bed & Breakfast · Check-out 11:00 AM next day
+
+DAY: Jul 23 | Thursday — Drive North | Athens → Kilkis, Northern Greece | gold | Phase 2
+hotel: Check out — Attalos Hotel Athens | By 11:00 AM
+---
+car: Pick up Rental Van — Athens International Airport | 10:00 AM · Mercedes-Benz Vito · Booking #9733244521
+---
+drive: Drive North to Kilkis Area | Athens → Northern Greece
+event: Welcome Night & Traditional Celebration | Pre-wedding welcome gathering for all guests
+
+DAY: Jul 24 | Friday — Beach Day | Halkidiki, Greece | gold | Phase 2
+beach: Beach Day — Halkidiki | Group beach day at one of Greece's most beautiful coastlines
+event: Evening Club Night
+
+DAY: Jul 25 | Saturday — Thessaloniki | Thessaloniki, Greece | gold | Phase 2
+tour: Thessaloniki City Tour | Explore Greece's second city — Byzantine walls, White Tower, Aristotelous Square
+
+DAY: Jul 26 | Sunday — Wedding Day 🎉 | Drosato, Kilkis, Northern Greece | purple | Wedding
+church: Optional Divine Liturgy | 9:00 AM · Kimisis Tis Theotokou Church, Drosato, Kilkis
+event: Bride Departs Grandparents' Home | 6:15 PM
+wedding: Ceremony — Marina Tsirambidis & Yianni Hahalis | 7:00 PM · Kimisis Tis Theotokou Church, Drosato, Kilkis
+drinks: Reception — The Delina Venue | 8:30 PM · Doirani · Bus shuttles provided between hotels and venue
+
+DAY: Jul 27 | Monday — Return to Athens | Athens Airport, Greece | slate | Phase 3
+coffee: Farewell Coffee Gathering | 12:00 PM · All guests
+drive: Drive Back to Athens | Northern Greece → Athens Airport area
+---
+hotel: Holiday Inn Athens — Airport | 3 rooms · 1 night · Near airport | confirm: 24285474 · 45777922 · 81617025
+
+DAY: Jul 28 | Tuesday — Departure Day | Athens International Airport | slate | Phase 3
+car: Return Rental Van — Athens International Airport | 9:00 AM
+flight: Fly Home — ATH to CLT | AA 325 · Departs 12:00 PM · Arrives 4:40 PM | confirm: QLCGXB
