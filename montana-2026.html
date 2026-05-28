@@ -903,9 +903,10 @@
     // ── FETCH & INIT ─────────────────────────────────────
     async function init() {
       try {
-        const resp = await fetch('https://raw.githubusercontent.com/ianmartens-1513/vacation-itineraries/main/data/montana-2026.txt?t=' + Date.now(), { cache: 'no-store' });
+        const resp = await fetch('https://api.github.com/repos/ianmartens-1513/vacation-itineraries/contents/data/montana-2026.txt', { cache: 'no-store' });
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        const text = await resp.text();
+        const json = await resp.json();
+        const text = decodeURIComponent(escape(atob(json.content.replace(/\n/g, ''))));
         const data = parseTripData(text);
         render(data);
       } catch (e) {
