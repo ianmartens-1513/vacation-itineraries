@@ -7,7 +7,7 @@ STAT: 12:00 PM | Depart ATH Jul 28 · Arrive CLT 4:40 PM · AA 325
 STAT: Jul 26 | Wedding — Drosato, Kilkis
 
 PHASE: Phase 1 | Jul 21–23 | Athens | 2 nights · Attalos Hotel | blue | Arrive via AA 326, George's Taxi transfers the group to the Attalos Hotel. Two days to explore the Acropolis, Plaka, and the city.
-PHASE: Phase 2 | Jul 23–27 | Northern Greece — Wedding Week | 4 nights · Rental van | gold | Pick up the Mercedes-Benz Vito and drive north. Welcome night Jul 23, beach day in Halkidiki Jul 24, Thessaloniki tour Jul 25, and the wedding on Jul 26.
+PHASE: Phase 2 | Jul 23–27 | Northern Greece — Wedding Week | 4 nights · Habitat Hotel | gold | Pick up the Mercedes-Benz Vito and drive north. Welcome night Jul 23, beach day in Halkidiki Jul 24, Thessaloniki tour Jul 25, and the wedding on Jul 26.
 PHASE: Phase 3 | Jul 27–28 | Athens Airport — Departure | 1 night · Holiday Inn | slate | Return to Athens, check into the Holiday Inn near the airport. Drop off the rental van in the morning and fly home.
 
 DAY: Jul 21 | Tuesday — Arrival in Athens | Athens, Greece | primary | Phase 1
@@ -32,6 +32,8 @@ car: Pick up Rental Van — Athens International Airport | 10:00 AM · Mercedes-
 ---
 drive: Drive North to Kilkis Area | Athens → Northern Greece
 event: Welcome Night & Traditional Celebration | Pre-wedding welcome gathering for all guests
+---
+hotel: Habitat Hotel | 4 nights · Spartis & St. George, 61 100 Kilkis · Check-in Jul 23
 
 DAY: Jul 24 | Friday — Beach Day | Halkidiki, Greece | gold | Phase 2
 beach: Beach Day — Halkidiki | Group beach day at one of Greece's most beautiful coastlines
