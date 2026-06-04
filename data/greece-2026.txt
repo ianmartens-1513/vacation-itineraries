@@ -26,9 +26,9 @@ hotel: Attalos Hotel Athens | Bed & Breakfast · Check-out 11:00 AM next day
 DAY: Jul 23 | Thursday — Drive North | Athens → Kilkis, Northern Greece | gold | Phase 2
 hotel: Check out — Attalos Hotel Athens | By 11:00 AM
 ---
-car: Pick up Rental Van — Athens International Airport | 10:00 AM · Mercedes-Benz Vito · Booking #9733244521
+train: Train to Thessaloniki — Round Trip | Departs Athens 6:58 AM · Arrives Thessaloniki 12:00 PM · Jul 23–27
 ---
-train: Train to Thessaloniki — Round Trip | Departs Athens 10:00 AM · Jul 23–27
+car: Pick up Rental Van — Athens International Airport | 10:00 AM · Mercedes-Benz Vito · Booking #9733244521
 ---
 drive: Drive North to Kilkis Area | Athens → Northern Greece
 event: Welcome Night & Traditional Celebration | Pre-wedding welcome gathering for all guests
@@ -47,7 +47,7 @@ wedding: Ceremony — Marina Tsirambidis & Yianni Hahalis | 7:00 PM · Kimisis T
 drinks: Reception — The Delina Venue | 8:30 PM · Doirani · Bus shuttles provided between hotels and venue
 
 DAY: Jul 27 | Monday — Return to Athens | Athens Airport, Greece | slate | Phase 3
-train: Return Train to Athens | Arrives Athens
+train: Return Train to Athens | Departs Thessaloniki 4:49 PM · Arrives Athens 9:58 PM
 ---
 coffee: Farewell Coffee Gathering | 12:00 PM · All guests
 drive: Drive Back to Athens | Northern Greece → Athens Airport area
